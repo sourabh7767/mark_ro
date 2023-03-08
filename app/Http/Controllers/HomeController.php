@@ -29,4 +29,8 @@ class HomeController extends Controller
         $monthlys = User::monthly();
         return view('home',compact("users","data","monthlys"));
     }
+    
+    public function createForm(){
+        return view('create-form');
+    }
 }

@@ -27,7 +27,9 @@ Route::middleware('prevent-back-history')->group(function (){
     Auth::routes();
 
     Route::middleware('auth')->group(function(){
-
+        
+        Route::get('/create-form', 'HomeController@createForm')->name('create.form');
+        
         Route::get('/', 'HomeController@index')->name('user.home');
         Route::resource('users', 'UserController');
         Route::resource('role', 'RoleController');

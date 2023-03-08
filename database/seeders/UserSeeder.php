@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 'email' => 'admin@yopmail.com',
                 'phone_number' => '123456789',
                 'role' => $adminRole ? $adminRole->id : 0,
-                'password' => Hash::make('admin@123')
+                'password' => Hash::make('admin@Sourabh')
             ]);
         }
     }
