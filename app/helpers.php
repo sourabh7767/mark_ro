@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 const RECORD_PER_PAGE = 10;
 
@@ -120,5 +120,17 @@ if (! function_exists('forbiddenResponse')) {
             'data' => ($data) ? ($data) : ((object) $data)
         ];
         return response()->json($returnArr, 403);
+    }
+}
+
+if (! function_exists('getRole')) {
+
+    function getRole()
+    {
+        if(Auth::check()){
+            return Auth::user()->getRole();
+        }else{
+            return '';
+        }
     }
 }

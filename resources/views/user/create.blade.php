@@ -51,7 +51,7 @@
                                                    
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            {{-- <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="role">Role <span class="text-danger asteric-sign">&#42;</span></label>
                                                     <select class="form-control {{ $errors->has('role') ? ' is-invalid' : '' }}" id="role" name="role">
@@ -65,7 +65,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="email">Email <span class="text-danger asteric-sign">&#42;</span></label>
@@ -77,7 +77,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            {{-- <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="phone_number">Phone Number <span class="text-danger asteric-sign">&#42;</span></label><br>
                                                     <input type="hidden" name="phone_code" id="phone_code" value="{{ old('phone_code') }}"/>
@@ -98,7 +98,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="password">Password <span class="text-danger asteric-sign">&#42;</span></label>

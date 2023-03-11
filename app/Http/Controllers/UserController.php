@@ -13,7 +13,6 @@ use Carbon\Carbon;
 
 
 
-
 class UserController extends Controller
 {
     public function index(Request $request, User $user)
@@ -72,13 +71,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
       $rules = array(
-             'full_name' => 'required',
+            'full_name' => 'required',
             'email' => 'required|email:rfc,dns,filter|unique:users,email,NULL,id,deleted_at,NULL',
-            'phone_code' => 'required',
-            'iso_code' => 'required',
-            'phone_number' => 'required|unique:users,phone_number,NULL,id,deleted_at,NULL|min:8|max:15',
+            // 'phone_code' => 'required',
+            // 'iso_code' => 'required',
+            // 'phone_number' => 'required|unique:users,phone_number,NULL,id,deleted_at,NULL|min:8|max:15',
             'password' => 'required',
-            'role'=>'required',
+            // 'role'=>'required',
             'confirm_password' => 'required|same:password'               
         );
 
@@ -89,6 +88,7 @@ class UserController extends Controller
         }  
 
         $userArr = $request->except(['confirm_password', '_token']);
+        $userArr['role'] = Role::where("title", "User")->pluck("id")->first();
 
         $model = new User;
 
@@ -126,12 +126,15 @@ class UserController extends Controller
       $rules = array(
              'full_name' => 'required',
             'email' => 'required|email:rfc,dns,filter|unique:users,email,'.$id.',id,deleted_at,NULL',
-            'phone_code' => 'required',
-            'iso_code' => 'required',
-            'phone_number' => 'required|unique:users,phone_number,'.$id.',id,deleted_at,NULL|min:8|max:15'
+            // 'phone_code' => 'required',
+            // 'iso_code' => 'required',
+            // 'phone_number' => 'required|unique:users,phone_number,'.$id.',id,deleted_at,NULL|min:8|max:15',
+            'confirm_password' => 'same:password'
         );
 
-        $validator = Validator::make($request->all(), $rules);
+        $message = ['confirm_password.same'=>'Password and confirm password should be same.'];
+
+        $validator = Validator::make($request->all(), $rules, $message);
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }  
@@ -141,7 +144,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'This user does not exist');
         }
 
-        $userArr = $request->except(['_method', '_token']);
+        $userArr = $request->except(['_method', '_token','confirm_password']);
 
         $model = $model->fill($userArr);
 

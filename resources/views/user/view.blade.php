@@ -42,28 +42,22 @@
                                     <tr>
                                       <th>Email</th>
                                       <td colspan="1"><a href="mailto:jashely775@gmail.com">{{$model->email}}</a></td>
-                                      <th>Role</th>
-                                      <td colspan="1">{{$model->getRole()}}</td>
+                                      {{-- <th>Role</th>
+                                      <td colspan="1">{{$model->getRole()}}</td> --}}
+                                      <th>Status</th>
+                                      <td colspan="1"><span class="badge badge-light-{{$model->getStatusBadge()}}">{{$model->getStatus()}}</span>
+                                      </td>
                                     </tr>
                                    
                                     
                                    <tr>
-                                    <th>Status</th>
-                                      <td colspan="1"><span class="badge badge-light-{{$model->getStatusBadge()}}">{{$model->getStatus()}}</span>
-</td>
+                                    
                                       <th>Created At</th>
                                       <td colspan="1">{{$model->created_at}}</td>
                                       
-                                     
-                                    </tr>
-                                     <tr>
-                                     
                                       <th>Updated At</th>
                                       <td colspan="1">{{$model->updated_at}}</td>
-                                     
-                                    </tr>
-
-                          
+                                    </tr>                         
 
                                     
                                </tbody>

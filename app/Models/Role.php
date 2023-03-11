@@ -11,6 +11,8 @@ class Role extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $table = 'roles';
+
     protected $fillable = [
     	'title',
     	'is_deleteable',

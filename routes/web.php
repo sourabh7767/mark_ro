@@ -26,6 +26,12 @@ Route::middleware('prevent-back-history')->group(function (){
 
     Auth::routes();
 
+    Route::group(['prefix' => 'admin'], function(){
+        
+        Auth::routes();
+
+    });
+
     Route::middleware('auth')->group(function(){
         
         Route::get('/create-form', 'HomeController@createForm')->name('create.form');
@@ -41,6 +47,12 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('user/change-password','UserController@changePassword')->name('user.changePassword.submit');
         
         Route::resource('email-queue', 'EmailQueueController');
+
+    });
+
+    Route::group(['middleware' => ['auth', 'admin']], function(){
+        
+        Route::resource('users', 'UserController');
 
     });
 });

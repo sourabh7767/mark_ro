@@ -51,7 +51,7 @@
                                                    
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            {{-- <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="role">Role <span class="text-danger asteric-sign">&#42;</span></label>
                                                     <select class="form-control {{ $errors->has('role') ? ' is-invalid' : '' }}" id="role" name="role">
@@ -65,7 +65,7 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="email">Email <span class="text-danger asteric-sign">&#42;</span></label>
@@ -77,7 +77,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            {{-- <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="phone_number">Phone Number <span class="text-danger asteric-sign">&#42;</span></label><br>
                                                     <input type="hidden" name="phone_code" id="phone_code" value="{{ (old('phone_code')) ? (old('phone_code')) : ($userObj->phone_code) }}"/>
@@ -95,6 +95,29 @@
                                                     @elseif($errors->has('iso_code'))
                                                         <span class="invalid-feedback d-block" role="alert">
                                                             <strong>{{ $errors->first('iso_code') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div> --}}
+
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="password">Password</label>
+                                                     <input id="password" type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Password">
+                                                    @if ($errors->has('password'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $errors->first('password') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-1">
+                                                    <label class="form-label" for="confirm_password">Confirm Password</label>
+                                                    <input id="confirm_password" type="password" class="form-control {{ $errors->has('confirm_password') ? ' is-invalid' : '' }}" name="confirm_password" placeholder="Confirm Password">
+                                                    @if ($errors->has('confirm_password'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $errors->first('confirm_password') }}</strong>
                                                         </span>
                                                     @endif
                                                 </div>

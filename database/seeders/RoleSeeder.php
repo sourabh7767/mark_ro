@@ -19,12 +19,17 @@ class RoleSeeder extends Seeder
 
         if(!$count){
     		
-    		DB::table('roles')->insert([
+    		DB::table('roles')->insert([[
                 'title' => "Admin",
                 'is_deleteable' => 0,
                 'created_at' => date("Y-m-d H:i:s"),
                 'created_by'=> 0
-            ]);
+            ],[
+                'title' => "User",
+                'is_deleteable' => 0,
+                'created_at' => date("Y-m-d H:i:s"),
+                'created_by'=> 0
+            ]]);
 
     	}
     

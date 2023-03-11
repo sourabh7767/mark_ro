@@ -44,7 +44,7 @@
                     <th>S.No</th>
                     <th>Full Name</th>
                     <th>Email</th>
-                    <th>Role</th>
+                    {{-- <th>Role</th> --}}
                      <th>Status</th>
                     <th>Created At</th>
                     <th data-orderable="false">Action</th>

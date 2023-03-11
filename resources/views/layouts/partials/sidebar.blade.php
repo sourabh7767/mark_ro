@@ -37,16 +37,20 @@
             <li class=" nav-item {{request()->is('/')?'active':''}}">
                 <a class="d-flex align-items-center" href="{{ route('user.home') }}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span></a>
             </li>
-            <li class=" navigation-header">User Management<i data-feather="more-horizontal"></i></li>
-            <!-- <li class=" nav-item"><a class="d-flex align-items-center" href="app-email.html"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Email</span></a>
-            </li> -->
-            
-            <li class=" nav-item {{request()->is('users') || request()->is('users/*')?'active':''}}"><a class="d-flex align-items-center" href="{{route('users.index')}}"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Users</span></a>
-               
-            </li>
 
-            <li class=" nav-item {{request()->is('role') || request()->is('role/*')?'active':''}}"><a class="d-flex align-items-center" href="{{route('role.index')}}"><i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Kanban">Roles</span></a>
+            @if(getRole() == 'Admin')
+
+                <li class=" navigation-header">User Management<i data-feather="more-horizontal"></i></li>
+                <!-- <li class=" nav-item"><a class="d-flex align-items-center" href="app-email.html"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Email</span></a>
+                </li> -->
+            
+                <li class=" nav-item {{request()->is('users') || request()->is('users/*')?'active':''}}"><a class="d-flex align-items-center" href="{{route('users.index')}}"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Users</span></a>
+                
                 </li>
+            @endif
+
+            {{-- <li class=" nav-item {{request()->is('role') || request()->is('role/*')?'active':''}}"><a class="d-flex align-items-center" href="{{route('role.index')}}"><i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Kanban">Roles</span></a>
+                </li> --}}
             <!-- <li class=" nav-item"><a class="d-flex align-items-center" href="app-file-manager.html"><i data-feather="save"></i><span class="menu-title text-truncate" data-i18n="File Manager">File Manager</span></a>
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">Roles &amp; Permission</span></a>

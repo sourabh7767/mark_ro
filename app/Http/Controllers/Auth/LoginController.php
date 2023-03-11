@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Auth;
+use App\Models\User;
 
 
 class LoginController extends Controller
@@ -45,20 +46,27 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
-
         $rules = array(
             'email' => 'required|email:rfc,dns,filter',
             'password' => 'required',
+            'role' => 'required|in:User,Admin'
         );
-        $validator = Validator::make($request->all(), $rules);
+        $message = array('role' => '');
+        $validator = Validator::make($request->all(), $rules, $message);
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
-        }  
+        }
 
-        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $user = User::where("email", $request->email)->leftJoin('roles', 'users.role', 'roles.id')->first();
 
+        if(!empty($user) && $user['title'] == $request->role){
+            if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
+                return $this->sendFailedLoginResponse($request);
+    
+            }
+        }else{
             return $this->sendFailedLoginResponse($request);
-
         }
 
         return redirect()->route('user.home');
@@ -67,7 +75,12 @@ class LoginController extends Controller
 
     public function logout(Request $request){
 
-        Auth::logout(); // logout user
-        return redirect('/login');
+        if(getRole() == 'Admin'){
+            Auth::logout();
+            return redirect('/admin/login');
+        }else{
+            Auth::logout();
+            return redirect('/login');
+        }
     }
 }
