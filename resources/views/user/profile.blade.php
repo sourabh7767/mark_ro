@@ -34,7 +34,7 @@
 
                       @if(!empty($model->profile_image))
 
-                      <img src="{{$model->profile_image}}" style="width:100%;">
+                      <img src="{{Storage::url($model->profile_image)}}" style="width:100%;">
 
                       @endif
 
@@ -57,13 +57,11 @@
                         <tr>
                             <th>Email</th>
                             <td colspan="1">{{$model->email}}</td>
-                            
                          </tr>
-                         <tr>
+                         {{-- <tr>
                             <th>Role</th>
                             <td colspan="1">{{$model->getRole()}}</td>
-                            
-                         </tr>
+                         </tr> --}}
                         <tr>
                             <th>Created At</th>
                         <td colspan="1">{{$model->created_at}}</td>

@@ -232,7 +232,7 @@ class UserController extends Controller
         
         $model = $model->fill($request->all());
         if($request->hasFile('file')){
-        $model->profile_image = saveUploadedFile($request->file);
+            $model->profile_image = saveUploadedFile('images',$request->file('file'));
         }
         if($model->save()){
 

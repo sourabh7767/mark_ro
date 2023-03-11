@@ -2,13 +2,10 @@
 
 const RECORD_PER_PAGE = 10;
 
-function saveUploadedFile($file, $folder = "images")
-{
-    $fileName = rand() . '_' . time() . '.' . $file->getClientOriginalExtension();
-    Storage::disk($folder)->putFileAs('/', $file, $fileName);
-    return Storage::disk($folder)->url($fileName);
-}
+function saveUploadedFile($path,$file){
 
+    return Storage::putFile('public/'.$path,$file);
+}
 
 if (! function_exists('returnNotFoundResponse')) {
 
