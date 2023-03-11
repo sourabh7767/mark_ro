@@ -24,13 +24,13 @@ Route::middleware('prevent-back-history')->group(function (){
         return Redirect::back()->with('success', 'All cache cleared successfully.');
     });
 
-    Auth::routes();
-
     Route::group(['prefix' => 'admin'], function(){
         
         Auth::routes();
 
     });
+
+    Auth::routes();
 
     Route::middleware('auth')->group(function(){
         

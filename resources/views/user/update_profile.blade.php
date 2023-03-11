@@ -46,7 +46,7 @@
                   </div>
                   
                   
-                   <div class="col-md-6">
+                   {{-- <div class="col-md-6">
                             <label for="phone" class="col-form-label">Phone Number <span class="text-danger asteric-sign">&#42;</span></label><br>
                             <input type="hidden" name="phone_code" id="phone_code" value="{{ (old('phone_code')) ? (old('phone_code')) : ($model->phone_code) }}"/>
                             <input type="hidden" name="iso_code" id="iso_code" value="{{ (old('iso_code')) ? (old('iso_code')) : ($model->iso_code) }}"/>
@@ -65,20 +65,16 @@
                                     <strong>{{ $errors->first('iso_code') }}</strong>
                                 </span>
                             @endif
-                        </div>
+                        </div> --}}
                   </div>
 
                   <div class="col-md-6">
-                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" name="email" value="{{old('email') ?? $model->email}}" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="exampleInputEmail1" placeholder="Enter email">
-                     @if ($errors->has('email'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" value="{{old('email') ?? $model->email}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email" readonly="true">
+                    </div>
                   </div>
-
+                  <div class="col-md-6" style="margin-top:10px;">
                   <div class="form-group">
                     <label for="file">Profile</label>
                     <input type="file" name="file" class="form-control">

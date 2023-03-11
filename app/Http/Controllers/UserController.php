@@ -217,19 +217,19 @@ class UserController extends Controller
 
     {
 
-    $model = Auth()->user();
+        $model = Auth()->user();
 
-     $rules = array(
+        $rules = array(
             'full_name'=>'required',
-            'email' => 'required|email:rfc,dns,filter|unique:users,email,'.$model->id,
-            'phone_number' => 'required|unique:users,phone_number,'.$model->id.',id,deleted_at,NULL|min:8|max:10'
-
+            // 'email' => 'required|email:rfc,dns,filter|unique:users,email,'.$model->id,
+            // 'phone_number' => 'required|unique:users,phone_number,'.$model->id.',id,deleted_at,NULL|min:8|max:10'
         );
+        
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         } 
-
+        
         $model = $model->fill($request->all());
         if($request->hasFile('file')){
         $model->profile_image = saveUploadedFile($request->file);
