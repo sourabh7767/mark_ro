@@ -1,0 +1,42 @@
+/* Start Additional Css */
+.iti
+  {
+    display: block !important;
+  }
+.mt-24
+{
+  margin-top: 24px;
+}
+.customTitle {
+  color: #7367f0;
+  font-size: 20px;
+}
+.select {
+  background-image: url('https://img.icons8.com/external-dreamstale-lineal-dreamstale/256/external-down-arrow-arrows-dreamstale-lineal-dreamstale-2.png');
+  background-position: 95% 50%;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+  display: block;
+  height: auto;
+  cursor: pointer;
+}
+.addBtn {
+  background: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  padding: 7px 11px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: inline-block;
+}
+.removeBtn
+{
+  background: #dc3545;
+  color: #fff;
+  border: 1px solid #dc3545;
+  padding: 7px 11px;
+  border-radius: 5px;
+  font-size: 14px;
+  display: inline-block;
+}
+/* End Additional Css *
