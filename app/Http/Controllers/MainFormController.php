@@ -70,7 +70,7 @@ class MainFormController extends Controller
             $rules = array(
                 'full_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'email',
+                'email' => 'nullable|email',
                 'phone_code' => 'required',
                 'iso_code' => 'required',
                 'phone_number' => 'required|digits_between:7,12',
