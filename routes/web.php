@@ -34,7 +34,8 @@ Route::middleware('prevent-back-history')->group(function (){
 
     Route::middleware('auth')->group(function(){
         
-        Route::any('/create-form', 'HomeController@createForm')->name('create.form');
+        Route::any('/forms/create', 'MainFormController@createForm')->name('forms.create');
+        Route::any('/forms', 'MainFormController@index')->name('forms.index');
         
         Route::get('/', 'HomeController@index')->name('user.home');
         Route::resource('users', 'UserController');

@@ -57,23 +57,13 @@
                 
                 </li>
             @endif
+            
+            <li class=" navigation-header">Main Form<i data-feather="more-horizontal"></i></li>
 
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="{{ route('create.form') }}"><i data-feather="file-text"></i><span class="menu-title text-truncate">Create</span></a>
+            <li class="nav-item {{request()->is('forms') || request()->is('forms/*')?'active':''}}">
+                <a class="d-flex align-items-center" href="{{ route('forms.index') }}"><i data-feather="file-text"></i><span class="menu-title text-truncate">Forms</span></a>
             </li>
 
-            {{-- <li class=" nav-item {{request()->is('role') || request()->is('role/*')?'active':''}}"><a class="d-flex align-items-center" href="{{route('role.index')}}"><i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Kanban">Roles</span></a>
-                </li> --}}
-            <!-- <li class=" nav-item"><a class="d-flex align-items-center" href="app-file-manager.html"><i data-feather="save"></i><span class="menu-title text-truncate" data-i18n="File Manager">File Manager</span></a>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">Roles &amp; Permission</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="app-access-roles.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">Roles</span></a>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="app-access-permission.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">Permission</span></a>
-                    </li>
-                </ul>
-            </li> -->
             
         </ul>
     </div>

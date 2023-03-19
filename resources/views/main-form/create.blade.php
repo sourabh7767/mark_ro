@@ -19,7 +19,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('user.home')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{route('users.index')}}">User</a>
+                            <li class="breadcrumb-item"><a href="{{route('forms.index')}}">Forms</a>
                             </li>
                             <li class="breadcrumb-item active">Create Form
                             </li>
@@ -107,28 +107,29 @@
                             <!-- Start Tracking Information -->
                             <div class="row mt-2">
                                 <h4 class="card-title customTitle">Tracking Information</h4>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-12 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="estimator_name">Estimator<span class="text-danger asteric-sign">&#42;</span></label>
-                                        <select class="form-control select" id="estimator_name" name="estimator_name">
-                                            <option value="" hidden>Select Estimator</option>
+                                        <select class="form-control select {{ $errors->has('estimator_name') ? ' is-invalid' : '' }}" id="estimator_name" name="estimator_name">
+                                            <option value="">Select Estimator</option>
                                             
                                             @foreach($estimators as $key => $estimator)
-                                                <option value="{{ $estimator->id }}">{{ $estimator->name }}</option>
+                                                <option value="{{ $estimator->id }}" @if(old('estimator_name') == $estimator->id) {{ 'selected' }} @endif>{{ $estimator->name }}</option>
                                             @endforeach
                                             
                                         </select>
-
-                                        @if ($errors->has('estimator_name'))
+                                        {{-- @if ($errors->has('estimator_name')) --}}
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('estimator_name') }}</strong>
                                             </span>
-                                        @endif
+                                        {{-- @endif --}}
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="priority">Priority <span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="priority">Priority
+                                            <span class="text-danger asteric-sign"></span>
+                                        </label>
                                         <input id="priority" type="text" class="form-control {{ $errors->has('priority') ? ' is-invalid' : '' }}" name="priority" value="{{ old('priority') }}" placeholder="Priority">
                                         @if ($errors->has('priority'))
                                             <span class="invalid-feedback" role="alert">
@@ -136,7 +137,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <!-- Start Tracking Information -->
                             <!-- Start Vehic Information -->
@@ -145,16 +146,26 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="estimator_name">Year / Make:<span class="text-danger asteric-sign">&#42;</span></label>
-                                       <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 mb-2 mb-md-0">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 mb-2 mb-md-0">
+                                                
+                                                <input id="year" type="number" class="form-control {{ $errors->has('year') ? ' is-invalid' : '' }}" name="year" value="{{ old('year') }}" placeholder="Year" maxlength="4">
+                                                @if ($errors->has('year'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('year') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-6 mb-2 mb-md-0">
                                             
-                                            <input id="make_year" type="number" class="form-control {{ $errors->has('make_year') ? ' is-invalid' : '' }}" name="make_year" value="{{ old('make_year') }}" placeholder="Year / Make" maxlength="4">
-                                            @if ($errors->has('make_year'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('make_year') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
+                                                <input id="make" type="text" class="form-control {{ $errors->has('make') ? ' is-invalid' : '' }}" name="make" value="{{ old('make') }}" placeholder="Make">
+                                                @if ($errors->has('make'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('make') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
                                         {{-- <div class="col-sm-6 col-md-7 col-lg-9"> --}}
                                             {{-- <select class="form-control select" id="estimator_name">
                                                 <option class="" hidden>Select Estimator</option>
@@ -173,7 +184,7 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="exterior_color">Exterior Color:<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="exterior_color">Exterior Color:<span class="text-danger asteric-sign"></span></label>
                                         <input id="exterior_color" type="text" class="form-control {{ $errors->has('exterior_color') ? ' is-invalid' : '' }}" name="exterior_color" value="{{ old('exterior_color') }}" placeholder="Exterior Color">
                                         @if ($errors->has('exterior_color'))
                                             <span class="invalid-feedback" role="alert">
@@ -182,9 +193,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="priority_name">Body Style: <span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="priority_name">Body Style: <span class="text-danger asteric-sign"></span></label>
                                         <input id="body_style" type="text" class="form-control {{ $errors->has('body_style') ? ' is-invalid' : '' }}" name="body_style" value="{{ old('body_style') }}" placeholder="Body Style">
                                             @if ($errors->has('body_style'))
                                                 <span class="invalid-feedback" role="alert">
@@ -195,7 +206,7 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="interior_name">Interior Color:<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="interior_name">Interior Color:<span class="text-danger asteric-sign"></span></label>
                                         <input id="interior_color" type="text" class="form-control {{ $errors->has('interior_color') ? ' is-invalid' : '' }}" name="interior_color" value="{{ old('interior_color') }}" placeholder="Interior Color">
                                         @if ($errors->has('full_name'))
                                             <span class="invalid-feedback" role="alert">
@@ -206,7 +217,7 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="engine">Engine:<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="engine">Engine:<span class="text-danger asteric-sign"></span></label>
                                         <input id="engine" type="text" class="form-control {{ $errors->has('engine') ? ' is-invalid' : '' }}" name="engine" value="{{ old('engine') }}" placeholder="Engine">
                                         @if ($errors->has('engine'))
                                             <span class="invalid-feedback" role="alert">
@@ -214,10 +225,10 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-12">
+                                </div> --}}
+                                <div class="col-md-12 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="paint_code">Paint Code:<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="paint_code">Paint Code:<span class="text-danger asteric-sign"></span></label>
                                         <input id="paint_code" type="text" class="form-control {{ $errors->has('paint_code') ? ' is-invalid' : '' }}" name="paint_code" value="{{ old('paint_code') }}" placeholder="Paint Code">
                                         @if ($errors->has('paint_code'))
                                             <span class="invalid-feedback" role="alert">
@@ -233,8 +244,8 @@
                                             <div class="col-md-6">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="mileage_in">In:<span class="text-danger asteric-sign">&#42;</span></label>
-                                                    <input id="mileage_in" type="text" class="form-control {{ $errors->has('mileage_in') ? ' is-invalid' : '' }}" name="mileage_in" value="{{ old('engine') }}" placeholder="In">
-                                                    @if ($errors->has('engine'))
+                                                    <input id="mileage_in" type="text" class="form-control {{ $errors->has('mileage_in') ? ' is-invalid' : '' }}" name="mileage_in" value="{{ old('mileage_in') }}" placeholder="In">
+                                                    @if ($errors->has('mileage_in'))
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('mileage_in') }}</strong>
                                                         </span>
@@ -244,7 +255,7 @@
                                             <div class="col-md-6">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="mileage_out">Out:<span class="text-danger asteric-sign">&#42;</span></label>
-                                                    <input id="mileage_out" type="text" class="form-control {{ $errors->has('mileage_out') ? ' is-invalid' : '' }}" name="mileage_out" value="{{ old('engine') }}" placeholder="Out">
+                                                    <input id="mileage_out" type="text" class="form-control {{ $errors->has('mileage_out') ? ' is-invalid' : '' }}" name="mileage_out" value="{{ old('mileage_out') }}" placeholder="Out">
                                                     @if ($errors->has('mileage_out'))
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('mileage_out') }}</strong>
@@ -269,7 +280,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="trim_code">Production Date:<span class="text-danger asteric-sign">&#42;</span></label>
-                                        <input id="production_date" type="date" class="form-control {{ $errors->has('production_date') ? ' is-invalid' : '' }}" name="production_date" value="{{ old('production_date') }}" placeholder="Production Date">
+                                        <input id="production_date" type="month" max="<?php echo date("Y-m"); ?>" class="form-control {{ $errors->has('production_date') ? ' is-invalid' : '' }}" name="production_date" value="{{ old('production_date') }}" placeholder="Production Date">
                                         @if ($errors->has('production_date'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('production_date') }}</strong>
@@ -320,7 +331,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="claim_office">Claim Office<span class="text-danger asteric-sign">&#42;</span></label>
                                         <input id="claim_office" type="text" class="form-control {{ $errors->has('claim_office') ? ' is-invalid' : '' }}" name="claim_office" value="{{ old('claim_office') }}" placeholder="Claim Office">
@@ -330,7 +341,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="insurance_phone_number">Phone Number <span class="text-danger asteric-sign">&#42;</span></label><br>
@@ -361,7 +372,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="policy_number">Policy Number:<span class="text-danger asteric-sign">&#42;</span></label>
                                         <div class="row">
@@ -373,14 +384,14 @@
                                                     </span>
                                                 @endif
                                             </div>
-                                            {{-- <div class="col-sm-6 col-md-5 col-lg-3">
+                                            <div class="col-sm-6 col-md-5 col-lg-3">
                                                 <input id="adjuster" type="number" class="form-control {{ $errors->has('policy') ? ' is-invalid' : '' }}" name="policy" value="{{ old('policy') }}" placeholder="">
                                                 @if ($errors->has('policy'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('policy') }}</strong>
                                                     </span>
                                                 @endif
-                                            </div> --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -396,7 +407,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="deductible">Deductible:<span class="text-danger asteric-sign">&#42;</span></label>
@@ -424,7 +435,7 @@
                             <!-- Start Insurance Information -->
                             <!-- Start Assignment Information -->
                             <div class="row mt-2">
-                                <h4 class="card-title customTitle">Assignment Information</h4>
+                                {{-- <h4 class="card-title customTitle">Assignment Information</h4> --}}
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="claim_number">Claim Number:<span class="text-danger asteric-sign">&#42;</span></label>
@@ -436,7 +447,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="claim_type">Claim Type:<span class="text-danger asteric-sign">&#42;</span></label>
                                         <input id="claim_type" type="text" class="form-control {{ $errors->has('claim_type') ? ' is-invalid' : '' }}" name="claim_type" value="{{ old('claim_type') }}" placeholder="Claim Type">
@@ -446,10 +457,10 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-12">
+                                </div> --}}
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="loss_type">Type of Loss:<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="loss_type">Type of Loss:<span class="text-danger asteric-sign"></span></label>
                                         <input id="loss_type" type="text" class="form-control {{ $errors->has('loss_type') ? ' is-invalid' : '' }}" name="loss_type" value="{{ old('loss_type') }}" placeholder="Type of Loss">
                                         @if ($errors->has('loss_type'))
                                             <span class="invalid-feedback" role="alert">
@@ -457,11 +468,11 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="loss_time">Loss Date/Time:<span class="text-danger asteric-sign">&#42;</span></label>
-                                        <input id="loss_time" type="date" class="form-control {{ $errors->has('loss_time') ? ' is-invalid' : '' }}" name="loss_time" value="{{ old('loss_time') }}" placeholder="Loss Date/Time">
+                                        <label class="form-label" for="loss_time">Loss Date/Time:<span class="text-danger asteric-sign"></span></label>
+                                        <input id="loss_time" type="date" max="<?php echo date("Y-m-d"); ?>" class="form-control {{ $errors->has('loss_time') ? ' is-invalid' : '' }}" name="loss_time" value="{{ old('loss_time') }}" placeholder="Loss Date/Time">
                                         @if ($errors->has('loss_time'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('loss_time') }}</strong>
@@ -469,9 +480,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="claim_type">Payer:<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="claim_type">Payer:<span class="text-danger asteric-sign"></span></label>
                                         <input id="payer" type="text" class="form-control {{ $errors->has('payer') ? ' is-invalid' : '' }}" name="payer" value="{{ old('payer') }}" placeholder="Payer">
                                         @if ($errors->has('payer'))
                                             <span class="invalid-feedback" role="alert">
@@ -479,10 +490,10 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="insurance_prepaid_amount">Insurer Prepaid Amount:<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <label class="form-label" for="insurance_prepaid_amount">Insurer Prepaid Amount:<span class="text-danger asteric-sign"></span></label>
                                         <input id="insurance_prepaid_amount" type="text" class="form-control {{ $errors->has('insurance_prepaid_amount') ? ' is-invalid' : '' }}" name="insurance_prepaid_amount" value="{{ old('insurance_prepaid_amount') }}" placeholder="Insurer Prepaid Amount">
                                         @if ($errors->has('insurance_prepaid_amount'))
                                             <span class="invalid-feedback" role="alert">

@@ -16,18 +16,19 @@ class CreateVehiclesTable extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
-            $table->integer('make_year');
-            $table->integer('estimator_id')->nullable();
-            $table->string('exterior_color');
-            $table->string('body_style');
-            $table->string('interior_color');
-            $table->string('engine');
-            $table->string('paint_code');
-            $table->string('mileage_in');
-            $table->string('mileage_out');
-            $table->string('trim_code');
-            $table->date('production_date');
-            $table->string('license_plate');
+            $table->integer('year')->nullable()->default(null);
+            $table->string('make')->nullable()->default(null);
+            $table->integer('estimator_id')->nullable()->default(null);
+            $table->string('exterior_color')->nullable()->default(null);
+            $table->string('body_style')->nullable()->default(null);
+            $table->string('interior_color')->nullable()->default(null);
+            $table->string('engine')->nullable()->default(null);
+            $table->string('paint_code')->nullable()->default(null);
+            $table->string('mileage_in')->nullable()->default(null);
+            $table->string('mileage_out')->nullable()->default(null);
+            $table->string('trim_code')->nullable()->default(null);
+            $table->string('production_date')->nullable()->default(null);
+            $table->string('license_plate')->nullable()->default(null);
             $table->timestamps();
         });
     }

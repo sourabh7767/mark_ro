@@ -15,9 +15,10 @@ class CreateMainFormsTable extends Migration
     {
         Schema::create('main_forms', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->integer('customer_id');
             $table->integer('estimator_id');
-            $table->string('priority');
+            $table->string('priority')->nullable()->default(null);
             $table->timestamps();
         });
     }

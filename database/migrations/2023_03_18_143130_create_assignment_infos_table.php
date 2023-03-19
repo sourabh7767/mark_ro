@@ -16,12 +16,12 @@ class CreateAssignmentInfosTable extends Migration
         Schema::create('assignment_infos', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
-            $table->string('claim_number');
-            $table->string('claim_type');
-            $table->string('loss_type');
-            $table->datetime('loss_time');
-            $table->string('payer');
-            $table->string('insurance_prepaid_amount');
+            $table->string('claim_number')->nullable()->default(null);
+            $table->string('claim_type')->nullable()->default(null);
+            $table->string('loss_type')->nullable()->default(null);
+            $table->datetime('loss_time')->nullable()->default(null);
+            $table->string('payer')->nullable()->default(null);
+            $table->string('insurance_prepaid_amount')->nullable()->default(null);
             $table->timestamps();
         });
     }
