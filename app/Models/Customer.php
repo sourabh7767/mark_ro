@@ -39,7 +39,13 @@ class Customer extends Model
         if(empty($column)){
             $column = 'id';
         }
-        $query = self::select("customers.*")->orderBy($column, $order);
+
+        $query = self::select("customers.*","vehicles.year", "vehicles.make", "estimators.name as estimator_name", "insurances.insurance_company")
+        ->leftJoin('vehicles', 'customers.id', '=', 'vehicles.customer_id')
+        ->leftJoin('main_forms', 'customers.id', '=', 'main_forms.customer_id')
+        ->leftJoin('estimators', 'estimators.id', '=', 'main_forms.estimator_id')
+        ->leftJoin('insurances', 'insurances.customer_id', '=', 'customers.id')
+        ->orderBy($column, $order);
 
         if(!empty($request)){
 
@@ -49,7 +55,11 @@ class Customer extends Model
                  $query->where(function ($query) use($request,$search){
                         $query->orWhere( 'full_name', 'LIKE', '%'. $search .'%')
                             ->orWhere( 'email', 'LIKE', '%'. $search .'%')
-                            ->orWhere('customers.created_at', 'LIKE', '%' . $search . '%');
+                            ->orWhere('customers.created_at', 'LIKE', '%' . $search . '%')
+                            ->orWhere('estimators.name', 'LIKE', '%' . $search . '%')
+                            ->orWhere('insurance_company', 'LIKE', '%' . $search . '%')
+                            ->orWhere('year', 'LIKE', '%' . $search . '%')
+                            ->orWhere('make', 'LIKE', '%' . $search . '%');
 
                     });
 

@@ -29,7 +29,7 @@ class MainFormController extends Controller
 
             if(!empty($search)){
 
-            $setFilteredRecords = $user->getAllCustomers($request,true);
+            $setFilteredRecords = $customer->getAllCustomers($request,true);
 
            }
 
@@ -40,8 +40,20 @@ class MainFormController extends Controller
                     return $customer->full_name;
                 })
 
-                ->addColumn('email', function ($customer) {
-                    return $customer->email;
+                ->addColumn('year', function ($customer) {
+                    return $customer->year;
+                })
+
+                ->addColumn('make', function ($customer) {
+                    return $customer->make;
+                })
+
+                ->addColumn('estimator_name', function ($customer) {
+                    return $customer->estimator_name;
+                })
+
+                ->addColumn('insurance_company', function ($customer) {
+                    return $customer->insurance_company;
                 })
 
                 ->addColumn('action', function ($customer) {
@@ -83,18 +95,18 @@ class MainFormController extends Controller
                 // 'interior_color' => 'required',
                 // 'engine' => 'required',
                 // 'paint_code' => 'required',
-                'mileage_in' => 'required',
-                'mileage_out' => 'required',
-                'trim_code' => 'required',
+                // 'mileage_in' => 'required',
+                // 'mileage_out' => 'required',
+                // 'trim_code' => 'required',
                 'production_date' => 'required',
-                'license_plate' => 'required',
+                // 'license_plate' => 'required',
                 'insurance_company' => 'required',
                 // 'claim_office' => 'required',
-                'adjuster' => 'required',
+                // 'adjuster' => 'required',
                 // 'policy_number' => 'required',
                 // 'insurance_agent' => 'required',
-                'deductible' => 'required',
-                'claim_number' => 'required',
+                // 'deductible' => 'required',
+                // 'claim_number' => 'required',
                 // 'claim_type' => 'required',
                 // 'loss_type' => 'required',
                 // 'loss_time' => 'required',
@@ -133,6 +145,7 @@ class MainFormController extends Controller
                 $vehicle->trim_code = @$data['trim_code'];
                 $vehicle->production_date = @$data['production_date'];
                 $vehicle->license_plate = @$data['license_plate'];
+                $vehicle->licence_state = @$data['licence_state'];
                 $vehicle->customer_id = $customer_id;
 
                 if($vehicle->save()){
@@ -166,9 +179,9 @@ class MainFormController extends Controller
                             $mainForm->user_id = Auth::user()->id;
                             
                             if($mainForm->save()){
-                                return redirect()->back()->with('success', 'Form saved successfully');
+                                return redirect()->route('forms.index')->with('success', 'Form saved successfully');
                             }else{
-                                return redirect()->back()->with('error', 'Form saved successfully');
+                                return redirect()->route('forms.index')->with('error', 'Form saved successfully');
                             }
                         }
                     }

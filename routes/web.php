@@ -39,7 +39,6 @@ Route::middleware('prevent-back-history')->group(function (){
         
         Route::get('/', 'HomeController@index')->name('user.home');
         Route::resource('users', 'UserController');
-        Route::resource('estimators', 'EstimatorController');
         Route::resource('role', 'RoleController');
         Route::get('/user/changeStatus/{id}','UserController@changeStatus')->name('user.changeStatus');
         Route::get('user/profile','UserController@profile')->name('user.profile');
@@ -55,6 +54,7 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::group(['middleware' => ['auth', 'admin']], function(){
         
         Route::resource('users', 'UserController');
+        Route::resource('estimators', 'EstimatorController');
 
     });
 });

@@ -12,7 +12,10 @@ $(document).ready(function() {
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
             { data: 'full_name', name: 'full_name' },
-            { data: 'email', name: 'email' },
+            { data: 'year', name: 'year' },
+            { data: 'make', name: 'make' },
+            { data: 'estimator_name', name: 'estimator_name' },
+            { data: 'insurance_company', name: 'insurance_company' },
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

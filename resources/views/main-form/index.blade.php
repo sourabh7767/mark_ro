@@ -43,7 +43,10 @@
                   <tr>
                     <th>S.No</th>
                     <th>Full Name</th>
-                    <th>Email</th>
+                    <th>Year</th>
+                    <th>Make</th>
+                    <th>Estimator</th>
+                    <th>Insurance Company</th>
                     <th data-orderable="false">Action</th>
                   </tr>
                   </thead>
