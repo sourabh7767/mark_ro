@@ -15,6 +15,7 @@ class CreateMainFormsTable extends Migration
     {
         Schema::create('main_forms', function (Blueprint $table) {
             $table->id();
+            $table->string('ro')->nullable()->default(null);
             $table->integer('user_id');
             $table->integer('customer_id');
             $table->integer('estimator_id');

@@ -48,6 +48,10 @@ class MainFormController extends Controller
                     return $customer->make;
                 })
 
+                ->addColumn('model', function ($customer) {
+                    return $customer->model;
+                })
+
                 ->addColumn('estimator_name', function ($customer) {
                     return $customer->estimator_name;
                 })
@@ -90,6 +94,8 @@ class MainFormController extends Controller
                 // 'priority' => 'required',
                 'year' => 'required|numeric|min:1900|max:'.date("Y"),
                 'make' => 'required',
+                'model' => 'required',
+                'ro' => 'required',
                 // 'exterior_color' => 'required',
                 // 'body_style' => 'required',
                 // 'interior_color' => 'required',
@@ -98,7 +104,7 @@ class MainFormController extends Controller
                 // 'mileage_in' => 'required',
                 // 'mileage_out' => 'required',
                 // 'trim_code' => 'required',
-                'production_date' => 'required',
+                //'production_date' => 'required',
                 // 'license_plate' => 'required',
                 'insurance_company' => 'required',
                 // 'claim_office' => 'required',
@@ -112,7 +118,7 @@ class MainFormController extends Controller
                 // 'loss_time' => 'required',
                 // 'payer' => 'required',
                 // 'insurance_prepaid_amount' =>'required|numeric',
-                'insurance_phone_number' => 'digits_between:7,12'
+                //'insurance_phone_number' => 'digits_between:7,12'
             );
 
             $validator = Validator::make($request->all(), $rules);
@@ -135,6 +141,7 @@ class MainFormController extends Controller
                 $vehicle = new Vehicle;
                 $vehicle->make = $data['make'];
                 $vehicle->year = $data['year'];
+                $vehicle->model = $data['model'];
                 $vehicle->exterior_color = $data['exterior_color'];
                 $vehicle->body_style = @$data['body_style'];
                 $vehicle->interior_color = @$data['interior_color'];
@@ -176,6 +183,7 @@ class MainFormController extends Controller
                             $mainForm->customer_id = $customer_id;
                             $mainForm->priority = @$data['priority'];
                             $mainForm->estimator_id = @$data['estimator_name'];
+                            $mainForm->ro = @$data['ro'];
                             $mainForm->user_id = Auth::user()->id;
                             
                             if($mainForm->save()){

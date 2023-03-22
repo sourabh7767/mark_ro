@@ -14,6 +14,7 @@ $(document).ready(function() {
             { data: 'full_name', name: 'full_name' },
             { data: 'year', name: 'year' },
             { data: 'make', name: 'make' },
+            { data: 'model', name: 'model' },
             { data: 'estimator_name', name: 'estimator_name' },
             { data: 'insurance_company', name: 'insurance_company' },
             { data: 'action', name: 'action', orderable: false, searchable: false},

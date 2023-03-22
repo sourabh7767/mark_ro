@@ -18,6 +18,7 @@ class CreateVehiclesTable extends Migration
             $table->integer('customer_id');
             $table->integer('year')->nullable()->default(null);
             $table->string('make')->nullable()->default(null);
+            $table->string('model')->nullable()->default(null);
             $table->integer('estimator_id')->nullable()->default(null);
             $table->string('exterior_color')->nullable()->default(null);
             $table->string('body_style')->nullable()->default(null);

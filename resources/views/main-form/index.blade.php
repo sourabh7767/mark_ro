@@ -45,6 +45,7 @@
                     <th>Full Name</th>
                     <th>Year</th>
                     <th>Make</th>
+                    <th>Model</th>
                     <th>Estimator</th>
                     <th>Insurance Company</th>
                     <th data-orderable="false">Action</th>
