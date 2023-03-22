@@ -40,7 +40,7 @@ class Customer extends Model
             $column = 'id';
         }
 
-        $query = self::select("customers.*","vehicles.year", "vehicles.make", "estimators.name as estimator_name", "insurances.insurance_company")
+        $query = self::select("customers.*","vehicles.year", "vehicles.make","vehicles.model", "estimators.name as estimator_name", "insurances.insurance_company")
         ->leftJoin('vehicles', 'customers.id', '=', 'vehicles.customer_id')
         ->leftJoin('main_forms', 'customers.id', '=', 'main_forms.customer_id')
         ->leftJoin('estimators', 'estimators.id', '=', 'main_forms.estimator_id')
