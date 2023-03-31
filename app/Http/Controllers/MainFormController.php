@@ -61,7 +61,7 @@ class MainFormController extends Controller
                 })
 
                 ->addColumn('action', function ($customer) {
-                $btn = '';
+                $btn = '<a href="'.route("form.view", $customer->id).'"><i class="fa fa-eye" aria-hidden="true"></i></a>';
 
                 return $btn;
             })
@@ -198,5 +198,20 @@ class MainFormController extends Controller
         }
 
         return view('main-form.create', compact('estimators'));
+    }
+
+    public function view($customer_id){
+
+        $customer = Customer::select("customers.*","vehicles.year", "vehicles.make","vehicles.model", "estimators.name as estimator_name", "insurances.insurance_company")
+        ->leftJoin('vehicles', 'customers.id', '=', 'vehicles.customer_id')
+        ->leftJoin('main_forms', 'customers.id', '=', 'main_forms.customer_id')
+        ->leftJoin('estimators', 'estimators.id', '=', 'main_forms.estimator_id')
+        ->leftJoin('insurances', 'insurances.customer_id', '=', 'customers.id')
+        ->where("customers.id", $customer_id)
+        ->first();
+
+        // echo "<pre>"; print_r($customer->toArray()); die;
+
+        return view('main-form.view', compact('customer'));
     }
 }
