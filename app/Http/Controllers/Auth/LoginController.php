@@ -58,12 +58,13 @@ class LoginController extends Controller
         }
 
         $user = User::where("email", $request->email)->leftJoin('roles', 'users.role', 'roles.id')->first();
+        // echo "<pre>"; print_r($user); die;
 
         if(!empty($user) && $user['title'] == $request->role){
-            if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect()->route('user.home');
+            }else{
                 return $this->sendFailedLoginResponse($request);
-    
             }
         }else{
             return $this->sendFailedLoginResponse($request);
