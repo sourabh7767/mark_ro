@@ -49,8 +49,8 @@ class Customer extends Model
 
         if(!empty($request)){
 
-            // echo "<pre>"; print_r($request); die;
-            $search = @$request['search'];
+             //echo "<pre>"; print_r($request["search"]); die;
+            $search = @$request['search']["value"];
             $status = @$request['status'];
 
             if(!empty($search)){

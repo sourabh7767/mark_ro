@@ -546,7 +546,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="insurance_prepaid_amount">Insurer Prepaid Amount:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="insurance_prepaid_amount" type="text" class="form-control {{ $errors->has('insurance_prepaid_amount') ? ' is-invalid' : '' }}" name="insurance_prepaid_amount" value="{{ !empty($customer['insurance_prepaid_amount'])? $customer['insurance_prepaid_amount'] : old('insurance_prepaid_amount') }}" placeholder="Insurer Prepaid Amount">
+                                        <input id="insurance_prepaid_amount" type="text" class="form-control {{ $errors->has('insurance_prepaid_amount') ? ' is-invalid' : '' }}" name="insurance_prepaid_amount" value="{{old('insurance_prepaid_amount',$customer['insurance_prepaid_amount'])}}" placeholder="Insurer Prepaid Amount">
                                         @if ($errors->has('insurance_prepaid_amount'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('insurance_prepaid_amount') }}</strong>
