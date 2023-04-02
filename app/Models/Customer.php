@@ -39,8 +39,8 @@ class Customer extends Model
         if(empty($column)){
             $column = 'id';
         }
-
-        $query = self::select("customers.*","vehicles.year", "vehicles.make","vehicles.model", "estimators.name as estimator_name", "insurances.insurance_company")
+        
+        $query = self::select("customers.*","vehicles.year", "vehicles.make","vehicles.model", "estimators.name as estimator_name", "insurances.insurance_company", "main_forms.status")
         ->leftJoin('vehicles', 'customers.id', '=', 'vehicles.customer_id')
         ->leftJoin('main_forms', 'customers.id', '=', 'main_forms.customer_id')
         ->leftJoin('estimators', 'estimators.id', '=', 'main_forms.estimator_id')
@@ -49,29 +49,39 @@ class Customer extends Model
 
         if(!empty($request)){
 
-            $search = $request['search']['value'];
+            // echo "<pre>"; print_r($request); die;
+            $search = @$request['search'];
+            $status = @$request['status'];
 
             if(!empty($search)){
-                 $query->where(function ($query) use($request,$search){
-                        $query->orWhere( 'full_name', 'LIKE', '%'. $search .'%')
-                            ->orWhere( 'email', 'LIKE', '%'. $search .'%')
-                            ->orWhere('customers.created_at', 'LIKE', '%' . $search . '%')
-                            ->orWhere('estimators.name', 'LIKE', '%' . $search . '%')
-                            ->orWhere('insurance_company', 'LIKE', '%' . $search . '%')
-                            ->orWhere('year', 'LIKE', '%' . $search . '%')
-                            ->orWhere('make', 'LIKE', '%' . $search . '%');
+                $query->where(function ($query) use($request,$search){
+                    $query->orWhere( 'full_name', 'LIKE', '%'. $search .'%')
+                        ->orWhere( 'email', 'LIKE', '%'. $search .'%')
+                        ->orWhere('customers.created_at', 'LIKE', '%' . $search . '%')
+                        ->orWhere('estimators.name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('insurance_company', 'LIKE', '%' . $search . '%')
+                        ->orWhere('year', 'LIKE', '%' . $search . '%')
+                        ->orWhere('make', 'LIKE', '%' . $search . '%');
+                });
 
-                    });
+                if($status == 'open' || $status == 'closed'){
+                    $query->where('main_forms.status', '=', $status);
+                }
 
-                 if($flag)
+                if($flag)
+                    return $query->count();
+            }
+
+            if($status == 'open' || $status == 'closed'){
+                $query->where('main_forms.status', '=', $status);
+
+                if($flag)
                     return $query->count();
             }
 
             $start =  $request['start'];
             $length = $request['length'];
             $query->offset($start)->limit($length);
-
-
         }
 
         $query = $query->get();

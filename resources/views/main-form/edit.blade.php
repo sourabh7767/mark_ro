@@ -38,22 +38,37 @@
                     <div class="card-body">
                         <form method="POST" action="">
                             @csrf
-                            <div>
-                                    <div class="col-md-6 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="full_name">Ro <span class="text-danger asteric-sign">&#42;</span></label>
-                                                    <input id="full_name" type="text" class="form-control {{ $errors->has('ro') ? ' is-invalid' : '' }}" name="ro" value="{{ $customer['ro'] }}" placeholder="Ro">
-                                                    @if ($errors->has('ro'))
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('ro') }}</strong>
-                                                        </span>
-                                                    @endif
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label" for="full_name">Ro <span class="text-danger asteric-sign">&#42;</span></label>
+                                            <input id="full_name" type="text" class="form-control {{ $errors->has('ro') ? ' is-invalid' : '' }}" name="ro" value="{{ !empty($customer['ro'])? $customer['ro'] : old('ro') }}" placeholder="Ro">
+                                            @if ($errors->has('ro'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('ro') }}</strong>
+                                                </span>
+                                            @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label" for="status_name">Status<span class="text-danger asteric-sign">&#42;</span></label>
+                                        <select class="form-control select {{ $errors->has('status') ? ' is-invalid' : '' }}" id="status" name="status">
+                                            <option value="">Select Status</option>
+                                            <option value="open" @if($customer['status'] == 'open') {{"selected"}} @elseif(old('status') == 'open') {{"selected"}} @endif>Open</option>
+                                            <option value="closed" @if($customer['status'] == 'closed') {{"selected"}} @elseif(old('status') == 'closed') {{"selected"}} @endif>Closed</option>     
+                                        </select>
+                                        {{-- @if ($errors->has('estimator_name')) --}}
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('status') }}</strong>
+                                            </span>
+                                        {{-- @endif --}}
+                                    </div>
+                                </div>
                             </div>
                             <!-- Start Customer Name -->
                             <div class="row">
-                                <h4 class="card-title customTitle mb-1">Customer Name</h4>
+                                <h4 class="card-title customTitle mb-1">Customer Info</h4>
                                 {{-- <div class="btn-group mb-1">
                                     <button class="addBtn me-1"><i class="fas fa-plus"></i> Add</button>
                                     <button class="removeBtn"><i class="fas fa-times"></i> Remove</button>
@@ -61,18 +76,18 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="full_name">Full Name <span class="text-danger asteric-sign">&#42;</span></label>
-                                            <input id="full_name" type="text" class="form-control {{ $errors->has('full_name') ? ' is-invalid' : '' }}" name="full_name" value="{{ $customer['full_name'] }}" placeholder="Full Name">
-                                            @if ($errors->has('full_name'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('full_name') }}</strong>
-                                                </span>
-                                            @endif
+                                        <input id="full_name" type="text" class="form-control {{ $errors->has('full_name') ? ' is-invalid' : '' }}" name="full_name" value="{{ !empty($customer['full_name'])? $customer['full_name'] : old('full_name') }}" placeholder="Full Name">
+                                        @if ($errors->has('full_name'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('full_name') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="last_name">Last Name <span class="text-danger asteric-sign">&#42;</span></label>
-                                            <input id="last_name" type="text" class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ $customer['last_name'] }}" placeholder="Last Name">
+                                            <input id="last_name" type="text" class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ !empty($customer['last_name'])? $customer['last_name'] : old('last_name') }}" placeholder="Last Name">
                                             @if ($errors->has('last_name'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('last_name') }}</strong>
@@ -83,7 +98,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="email">Email <span class="text-danger asteric-sign"></span></label>
-                                            <input id="email" type="text" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $customer['email'] }}" placeholder="Email">
+                                            <input id="email" type="text" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ !empty($customer['email'])? $customer['email'] : old('email') }}" placeholder="Email">
                                         @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('email') }}</strong>
@@ -94,9 +109,9 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="phone_number">Phone Number <span class="text-danger asteric-sign">&#42;</span></label><br>
-                                        <input type="hidden" name="phone_code" id="phone_code" value="{{ $customer['phone_code'] }}"/>
-                                        <input type="hidden" name="iso_code" id="iso_code" value="{{ $customer['iso_code'] }}"/>
-                                        <input id="phone_number" type="text" class="form-control {{ $errors->has('phone_number') ? ' is-invalid' : '' }}" name="phone_number" value="{{ $customer['phone_number'] }}" placeholder="Phone Number">
+                                        <input type="hidden" name="phone_code" id="phone_code" value="{{ !empty($customer['phone_code'])? $customer['phone_code'] : old('phone_code') }}"/>
+                                        <input type="hidden" name="iso_code" id="iso_code" value="{{ !empty($customer['iso_code'])? $customer['iso_code'] : old('iso_code') }}"/>
+                                        <input id="phone_number" type="text" class="form-control {{ $errors->has('phone_number') ? ' is-invalid' : '' }}" name="phone_number" value="{{ !empty($customer['customer_phone_number']) ? $customer['customer_phone_number'] : old('customer_phone_number') }}" placeholder="Phone Number">
                                         @if ($errors->has('phone_number'))
                                             <span class="invalid-feedback d-block" role="alert">
                                                 <strong>{{ $errors->first('phone_number') }}</strong>
@@ -127,7 +142,7 @@
                                             <option value="">Select Estimator</option>
                                             
                                             @foreach($estimators as $key => $estimator)
-                                                <option value="{{ $estimator->id }}" @if($customer['estimator_id'] == $estimator->id) {{ 'selected' }} @endif>{{ $estimator->name }}</option>
+                                                <option value="{{ $estimator->id }}" @if($customer['estimator_id'] == $estimator->id) {{ 'selected' }} @elseif(old('estimator_id') == $estimator->id) {{ 'selected' }} @endif>{{ $estimator->name }}</option>
                                             @endforeach
                                             
                                         </select>
@@ -143,7 +158,7 @@
                                         <label class="form-label" for="priority">Priority
                                             <span class="text-danger asteric-sign"></span>
                                         </label>
-                                        <input id="priority" type="text" class="form-control {{ $errors->has('priority') ? ' is-invalid' : '' }}" name="priority" value="{{ $customer['priority'] }}" placeholder="Priority">
+                                        <input id="priority" type="text" class="form-control {{ $errors->has('priority') ? ' is-invalid' : '' }}" name="priority" value="{{ !empty($customer['priority'])? $customer['priority'] : old('priority') }}" placeholder="Priority">
                                         @if ($errors->has('priority'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('priority') }}</strong>
@@ -162,7 +177,7 @@
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-lg-8 mb-2 mb-md-0">
                                                 
-                                                <input id="year" type="number" class="form-control {{ $errors->has('year') ? ' is-invalid' : '' }}" name="year" value="{{ $customer['year'] }}" placeholder="Year" maxlength="4">
+                                                <input id="year" type="number" class="form-control {{ $errors->has('year') ? ' is-invalid' : '' }}" name="year" value="{{ !empty($customer['year'])? $customer['year'] : old('year') }}" placeholder="Year" maxlength="4">
                                                 @if ($errors->has('year'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('year') }}</strong>
@@ -178,7 +193,7 @@
                                         <div class="row"> 
                                             <div class="col-sm-6 col-md-6 col-lg-8 mb-2 mb-md-0">
                                             
-                                                <input id="make" type="text" class="form-control {{ $errors->has('make') ? ' is-invalid' : '' }}" name="make" value="{{ $customer['make'] }}" placeholder="Make">
+                                                <input id="make" type="text" class="form-control {{ $errors->has('make') ? ' is-invalid' : '' }}" name="make" value="{{ !empty($customer['make'])? $customer['make'] : old('make') }}" placeholder="Make">
                                                 @if ($errors->has('make'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('make') }}</strong>
@@ -194,7 +209,7 @@
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-lg-8 mb-2 mb-md-0">
                                             
-                                                <input id="model" type="text" class="form-control {{ $errors->has('model') ? ' is-invalid' : '' }}" name="model" value="{{ $customer['model'] }}" placeholder="Model">
+                                                <input id="model" type="text" class="form-control {{ $errors->has('model') ? ' is-invalid' : '' }}" name="model" value="{{ !empty($customer['model'])? $customer['model'] : old('model') }}" placeholder="Model">
                                                 @if ($errors->has('model'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('model') }}</strong>
@@ -220,7 +235,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="exterior_color">Exterior Color:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="exterior_color" type="text" class="form-control {{ $errors->has('exterior_color') ? ' is-invalid' : '' }}" name="exterior_color" value="{{ $customer['exterior_color'] }}" placeholder="Exterior Color">
+                                        <input id="exterior_color" type="text" class="form-control {{ $errors->has('exterior_color') ? ' is-invalid' : '' }}" name="exterior_color" value="{{ !empty($customer['exterior_color'])? $customer['exterior_color'] : old('exterior_color') }}" placeholder="Exterior Color">
                                         @if ($errors->has('exterior_color'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('exterior_color') }}</strong>
@@ -231,7 +246,7 @@
                                 {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="priority_name">Body Style: <span class="text-danger asteric-sign"></span></label>
-                                        <input id="body_style" type="text" class="form-control {{ $errors->has('body_style') ? ' is-invalid' : '' }}" name="body_style" value="{{ $customer['body_style'] }}" placeholder="Body Style">
+                                        <input id="body_style" type="text" class="form-control {{ $errors->has('body_style') ? ' is-invalid' : '' }}" name="body_style" value="{{ !empty($customer['body_style'])? $customer['body_style'] : old('body_style') }}" placeholder="Body Style">
                                             @if ($errors->has('body_style'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('body_style') }}</strong>
@@ -242,7 +257,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="interior_name">Interior Color:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="interior_color" type="text" class="form-control {{ $errors->has('interior_color') ? ' is-invalid' : '' }}" name="interior_color" value="{{ $customer['interior_color'] }}" placeholder="Interior Color">
+                                        <input id="interior_color" type="text" class="form-control {{ $errors->has('interior_color') ? ' is-invalid' : '' }}" name="interior_color" value="{{ !empty($customer['interior_color'])? $customer['interior_color'] : old('interior_color') }}" placeholder="Interior Color">
                                         @if ($errors->has('full_name'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('interior_color') }}</strong>
@@ -253,7 +268,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="engine">Engine:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="engine" type="text" class="form-control {{ $errors->has('engine') ? ' is-invalid' : '' }}" name="engine" value="{{ $customer['engine'] }}" placeholder="Engine">
+                                        <input id="engine" type="text" class="form-control {{ $errors->has('engine') ? ' is-invalid' : '' }}" name="engine" value="{{ !empty($customer['engine'])? $customer['engine'] : old('engine') }}" placeholder="Engine">
                                         @if ($errors->has('engine'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('engine') }}</strong>
@@ -264,7 +279,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="paint_code">Paint Code:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="paint_code" type="text" class="form-control {{ $errors->has('paint_code') ? ' is-invalid' : '' }}" name="paint_code" value="{{ $customer['paint_code'] }}" placeholder="Paint Code">
+                                        <input id="paint_code" type="text" class="form-control {{ $errors->has('paint_code') ? ' is-invalid' : '' }}" name="paint_code" value="{{ !empty($customer['paint_code'])? $customer['paint_code'] : old('paint_code') }}" placeholder="Paint Code">
                                         @if ($errors->has('paint_code'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('paint_code') }}</strong>
@@ -279,7 +294,7 @@
                                             <div class="col-md-6">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="mileage_in">In:<span class="text-danger asteric-sign"></span></label>
-                                                    <input id="mileage_in" type="text" class="form-control {{ $errors->has('mileage_in') ? ' is-invalid' : '' }}" name="mileage_in" value="{{ $customer['mileage_in'] }}" placeholder="In">
+                                                    <input id="mileage_in" type="text" class="form-control {{ $errors->has('mileage_in') ? ' is-invalid' : '' }}" name="mileage_in" value="{{ !empty($customer['mileage_in'])? $customer['mileage_in'] : old('mileage_in') }}" placeholder="In">
                                                     @if ($errors->has('mileage_in'))
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('mileage_in') }}</strong>
@@ -290,7 +305,7 @@
                                             <div class="col-md-6">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="mileage_out">Out:<span class="text-danger asteric-sign"></span></label>
-                                                    <input id="mileage_out" type="text" class="form-control {{ $errors->has('mileage_out') ? ' is-invalid' : '' }}" name="mileage_out" value="{{ $customer['mileage_out'] }}" placeholder="Out">
+                                                    <input id="mileage_out" type="text" class="form-control {{ $errors->has('mileage_out') ? ' is-invalid' : '' }}" name="mileage_out" value="{{ !empty($customer['mileage_out'])? $customer['mileage_out'] : old('mileage_out') }}" placeholder="Out">
                                                     @if ($errors->has('mileage_out'))
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('mileage_out') }}</strong>
@@ -304,7 +319,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="trim_code">Trim Code:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="trim_code" type="text" class="form-control mt-24 {{ $errors->has('trim_code') ? ' is-invalid' : '' }}" name="trim_code" value="{{ $customer['trim_code'] }}" placeholder="Trim Code" name="trim_code">
+                                        <input id="trim_code" type="text" class="form-control mt-24 {{ $errors->has('trim_code') ? ' is-invalid' : '' }}" name="trim_code" value="{{ !empty($customer['trim_code'])? $customer['trim_code'] : old('trim_code') }}" placeholder="Trim Code" name="trim_code">
                                         @if ($errors->has('trim_code'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('trim_code') }}</strong>
@@ -315,7 +330,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="trim_code">Production Date:</label>
-                                        <input id="production_date" type="text" max="<?php echo date("Y-m"); ?>" class="form-control {{ $errors->has('production_date') ? ' is-invalid' : '' }}" name="production_date" value="{{ $customer['production_date'] }}" placeholder="Production Date">
+                                        <input id="production_date" type="text" max="<?php echo date("Y-m"); ?>" class="form-control {{ $errors->has('production_date') ? ' is-invalid' : '' }}" name="production_date" value="{{ !empty($customer['production_date'])? $customer['production_date'] : old('production_date') }}" placeholder="Production Date">
                                         @if ($errors->has('production_date'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('production_date') }}</strong>
@@ -328,7 +343,7 @@
                                         <label class="form-label" for="estimator_name">License Plate:<span class="text-danger asteric-sign"></span></label>
                                        <div class="row">
                                         <div class="col-md-9">
-                                            <input id="license_plate" type="text" class="form-control {{ $errors->has('license_plate') ? ' is-invalid' : '' }}" name="license_plate" value="{{ $customer['license_plate'] }}" placeholder="License Plate">
+                                            <input id="license_plate" type="text" class="form-control {{ $errors->has('license_plate') ? ' is-invalid' : '' }}" name="license_plate" value="{{ !empty($customer['license_plate'])? $customer['license_plate'] : old('license_plate') }}" placeholder="License Plate">
                                             @if ($errors->has('license_plate'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('license_plate') }}</strong>
@@ -360,7 +375,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="estimator_name">Insurance Company<span class="text-danger asteric-sign">&#42;</span></label>
-                                        <input id="insurance_company" type="text" class="form-control {{ $errors->has('insurance_company') ? ' is-invalid' : '' }}" name="insurance_company" value="{{ $customer['insurance_company'] }}" placeholder="Insurance Company">
+                                        <input id="insurance_company" type="text" class="form-control {{ $errors->has('insurance_company') ? ' is-invalid' : '' }}" name="insurance_company" value="{{ !empty($customer['insurance_company'])? $customer['insurance_company'] : old('insurance_company') }}" placeholder="Insurance Company">
                                         @if ($errors->has('insurance_company'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('insurance_company') }}</strong>
@@ -371,7 +386,7 @@
                                 {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="claim_office">Claim Office<span class="text-danger asteric-sign">&#42;</span></label>
-                                        <input id="claim_office" type="text" class="form-control {{ $errors->has('claim_office') ? ' is-invalid' : '' }}" name="claim_office" value="{{ $customer['claim_office'] }}" placeholder="Claim Office">
+                                        <input id="claim_office" type="text" class="form-control {{ $errors->has('claim_office') ? ' is-invalid' : '' }}" name="claim_office" value="{{ !empty($customer['claim_office'])? $customer['claim_office'] : old('claim_office') }}" placeholder="Claim Office">
                                         @if ($errors->has('claim_office'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('claim_office') }}</strong>
@@ -382,7 +397,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="insurance_phone_number">Phone Number </label><br>
-                                        <input id="insurance_phone_number" type="text" class="form-control {{ $errors->has('insurance_phone_number') ? ' is-invalid' : '' }}" name="insurance_phone_number" value="{{ $customer['insurance_phone_number'] }}" placeholder="Phone Number">
+                                        <input id="insurance_phone_number" type="text" class="form-control {{ $errors->has('insurance_phone_number') ? ' is-invalid' : '' }}" name="insurance_phone_number" value="{{ !empty($customer['insurance_phone_number'])? $customer['insurance_phone_number'] : old('insurance_phone_number') }}" placeholder="Phone Number">
                                         @if ($errors->has('insurance_phone_number'))
                                             <span class="invalid-feedback d-block" role="alert">
                                                 <strong>{{ $errors->first('insurance_phone_number') }}</strong>
@@ -401,7 +416,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="adjuster">Adjuster:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="adjuster" type="text" class="form-control {{ $errors->has('adjuster') ? ' is-invalid' : '' }}" name="adjuster" value="{{ $customer['adjuster'] }}" placeholder="Adjuster">
+                                        <input id="adjuster" type="text" class="form-control {{ $errors->has('adjuster') ? ' is-invalid' : '' }}" name="adjuster" value="{{ !empty($customer['adjuster'])? $customer['adjuster'] : old('adjuster') }}" placeholder="Adjuster">
                                         @if ($errors->has('adjuster'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('adjuster') }}</strong>
@@ -414,7 +429,7 @@
                                         <label class="form-label" for="policy_number">Policy Number:<span class="text-danger asteric-sign">&#42;</span></label>
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12 mb-2 mb-md-0">
-                                                <input id="policy_number" type="text" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ $customer['policy_number'] }}" name="policy_number" placeholder="Policy Number">
+                                                <input id="policy_number" type="text" class="form-control {{ $errors->has('policy_number') ? ' is-invalid' : '' }}" name="policy_number" value="{{ !empty($customer['policy_number'])? $customer['policy_number'] : old('policy_number') }}" name="policy_number" placeholder="Policy Number">
                                                 @if ($errors->has('policy_number'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('policy_number') }}</strong>
@@ -422,7 +437,7 @@
                                                 @endif
                                             </div>
                                             <div class="col-sm-6 col-md-5 col-lg-3">
-                                                <input id="adjuster" type="number" class="form-control {{ $errors->has('policy') ? ' is-invalid' : '' }}" name="policy" value="{{ $customer['policy'] }}" placeholder="">
+                                                <input id="adjuster" type="number" class="form-control {{ $errors->has('policy') ? ' is-invalid' : '' }}" name="policy" value="{{ !empty($customer['policy'])? $customer['policy'] : old('policy') }}" placeholder="">
                                                 @if ($errors->has('policy'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('policy') }}</strong>
@@ -436,7 +451,7 @@
                                     <div class="mb-1">
                                         <label class="form-label" for="insurance_agent">Insurance Agent:<span class="text-danger asteric-sign">&#42;</span></label>
                                         <div class="col-md-12">
-                                            <input id="insurance_agent" type="text" class="form-control {{ $errors->has('insurance_agent') ? ' is-invalid' : '' }}" name="insurance_agent" value="{{ $customer['insurance_agent'] }}" placeholder="Insurance Agent">
+                                            <input id="insurance_agent" type="text" class="form-control {{ $errors->has('insurance_agent') ? ' is-invalid' : '' }}" name="insurance_agent" value="{{ !empty($customer['insurance_agent'])? $customer['insurance_agent'] : old('insurance_agent') }}" placeholder="Insurance Agent">
                                             @if ($errors->has('insurance_agent'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('insurance_agent') }}</strong>
@@ -450,7 +465,7 @@
                                         <label class="form-label" for="deductible">Deductible:<span class="text-danger asteric-sign"></span></label>
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12 mb-12 mb-md-0">
-                                                <input id="deductible" type="text" class="form-control {{ $errors->has('deductible') ? ' is-invalid' : '' }}" name="deductible" value="{{ $customer['deductible'] }}" placeholder="Deductible">
+                                                <input id="deductible" type="text" class="form-control {{ $errors->has('deductible') ? ' is-invalid' : '' }}" name="deductible" value="{{ !empty($customer['deductible'])? $customer['deductible'] : old('deductible') }}" placeholder="Deductible">
                                                 @if ($errors->has('deductible'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('deductible') }}</strong>
@@ -458,7 +473,7 @@
                                                 @endif
                                             </div>
                                             {{-- <div class="col-md-7 col-lg-4">
-                                                <input id="deductible" type="text" class="form-control {{ $errors->has('deductible') ? ' is-invalid' : '' }}" name="policy" value="{{ $customer['deductible'] }}" placeholder="">
+                                                <input id="deductible" type="text" class="form-control {{ $errors->has('deductible') ? ' is-invalid' : '' }}" name="policy" value="{{ !empty($customer['deductible'])? $customer['deductible'] : old('deductible') }}" placeholder="">
                                                 @if ($errors->has('deductible'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('deductible') }}</strong>
@@ -476,7 +491,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="claim_number">Claim Number:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="claim_number" type="text" class="form-control {{ $errors->has('claim_number') ? ' is-invalid' : '' }}" name="claim_number" value="{{ $customer['claim_number'] }}" placeholder="Claim Number">
+                                        <input id="claim_number" type="text" class="form-control {{ $errors->has('claim_number') ? ' is-invalid' : '' }}" name="claim_number" value="{{ !empty($customer['claim_number'])? $customer['claim_number'] : old('claim_number') }}" placeholder="Claim Number">
                                         @if ($errors->has('claim_number'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('claim_number') }}</strong>
@@ -487,7 +502,7 @@
                                 {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="claim_type">Claim Type:<span class="text-danger asteric-sign">&#42;</span></label>
-                                        <input id="claim_type" type="text" class="form-control {{ $errors->has('claim_type') ? ' is-invalid' : '' }}" name="claim_type" value="{{ $customer['claim_type'] }}" placeholder="Claim Type">
+                                        <input id="claim_type" type="text" class="form-control {{ $errors->has('claim_type') ? ' is-invalid' : '' }}" name="claim_type" value="{{ !empty($customer['claim_type'])? $customer['claim_type'] : old('claim_type') }}" placeholder="Claim Type">
                                         @if ($errors->has('claim_type'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('claim_type') }}</strong>
@@ -498,7 +513,7 @@
                                 {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="loss_type">Type of Loss:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="loss_type" type="text" class="form-control {{ $errors->has('loss_type') ? ' is-invalid' : '' }}" name="loss_type" value="{{ $customer['loss_type'] }}" placeholder="Type of Loss">
+                                        <input id="loss_type" type="text" class="form-control {{ $errors->has('loss_type') ? ' is-invalid' : '' }}" name="loss_type" value="{{ !empty($customer['loss_type'])? $customer['loss_type'] : old('loss_type') }}" placeholder="Type of Loss">
                                         @if ($errors->has('loss_type'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('loss_type') }}</strong>
@@ -520,7 +535,7 @@
                                 {{-- <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="claim_type">Payer:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="payer" type="text" class="form-control {{ $errors->has('payer') ? ' is-invalid' : '' }}" name="payer" value="{{ $customer['payer'] }}" placeholder="Payer">
+                                        <input id="payer" type="text" class="form-control {{ $errors->has('payer') ? ' is-invalid' : '' }}" name="payer" value="{{ !empty($customer['payer'])? $customer['payer'] : old('payer') }}" placeholder="Payer">
                                         @if ($errors->has('payer'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('payer') }}</strong>
@@ -531,7 +546,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
                                         <label class="form-label" for="insurance_prepaid_amount">Insurer Prepaid Amount:<span class="text-danger asteric-sign"></span></label>
-                                        <input id="insurance_prepaid_amount" type="text" class="form-control {{ $errors->has('insurance_prepaid_amount') ? ' is-invalid' : '' }}" name="insurance_prepaid_amount" value="{{ $customer['insurance_prepaid_amount'] }}" placeholder="Insurer Prepaid Amount">
+                                        <input id="insurance_prepaid_amount" type="text" class="form-control {{ $errors->has('insurance_prepaid_amount') ? ' is-invalid' : '' }}" name="insurance_prepaid_amount" value="{{ !empty($customer['insurance_prepaid_amount'])? $customer['insurance_prepaid_amount'] : old('insurance_prepaid_amount') }}" placeholder="Insurer Prepaid Amount">
                                         @if ($errors->has('insurance_prepaid_amount'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('insurance_prepaid_amount') }}</strong>

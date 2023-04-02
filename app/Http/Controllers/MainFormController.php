@@ -23,15 +23,15 @@ class MainFormController extends Controller
 
             $totalCustomers = Customer::count();
 
-             $search = $request['search']['value'];
+            $search = @$request['search'];
 
-             $setFilteredRecords = $totalCustomers;
+            $setFilteredRecords = $totalCustomers;
 
             if(!empty($search)){
 
-            $setFilteredRecords = $customer->getAllCustomers($request,true);
+                $setFilteredRecords = $customer->getAllCustomers($request,true);
 
-           }
+            }
 
             return datatables()->of($customers)
                 ->addIndexColumn()
@@ -58,6 +58,10 @@ class MainFormController extends Controller
 
                 ->addColumn('insurance_company', function ($customer) {
                     return $customer->insurance_company;
+                })
+
+                ->addColumn('status', function ($customer) {
+                    return ucfirst($customer->status);
                 })
 
                 ->addColumn('action', function ($customer) {
@@ -185,6 +189,7 @@ class MainFormController extends Controller
                             $mainForm->estimator_id = @$data['estimator_name'];
                             $mainForm->ro = @$data['ro'];
                             $mainForm->user_id = Auth::user()->id;
+                            $mainForm->status = 'open';
                             
                             if($mainForm->save()){
                                 return redirect()->route('forms.index')->with('success', 'Form saved successfully');
@@ -218,7 +223,7 @@ class MainFormController extends Controller
     public function edit(Request $request, $customer_id){
 
         $estimators = Estimator::all();
-        $customer = Customer::select("customers.*","vehicles.*", "estimators.name as estimator_name", "estimators.id as estimator_id", "insurances.*", "insurances.phone_number as insurance_phone_number", "main_forms.*", "assignment_infos.*")
+        $customer = Customer::select("customers.*", "customers.phone_number as customer_phone_number","vehicles.*", "estimators.name as estimator_name", "estimators.id as estimator_id", "insurances.*", "insurances.phone_number as insurance_phone_number", "main_forms.*", "assignment_infos.*")
         ->leftJoin('vehicles', 'customers.id', '=', 'vehicles.customer_id')
         ->leftJoin('main_forms', 'customers.id', '=', 'main_forms.customer_id')
         ->leftJoin('estimators', 'estimators.id', '=', 'main_forms.estimator_id')
@@ -244,6 +249,7 @@ class MainFormController extends Controller
                 'make' => 'required',
                 'model' => 'required',
                 'ro' => 'required',
+                'status' => 'required',
                 // 'exterior_color' => 'required',
                 // 'body_style' => 'required',
                 // 'interior_color' => 'required',
@@ -284,8 +290,6 @@ class MainFormController extends Controller
             $customer->phone_number = $data['phone_number'];
 
             if($customer->save()){
-                $customer_id =  $customer->id;
-
                 $vehicle = Vehicle::where("customer_id", $customer_id)->first();
                 $vehicle->make = $data['make'];
                 $vehicle->year = $data['year'];
@@ -328,6 +332,7 @@ class MainFormController extends Controller
                             $mainForm->priority = @$data['priority'];
                             $mainForm->estimator_id = @$data['estimator_name'];
                             $mainForm->ro = @$data['ro'];
+                            $mainForm->status = @$data['status'];
                             $mainForm->user_id = Auth::user()->id;
                             
                             if($mainForm->save()){

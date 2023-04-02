@@ -337,7 +337,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control select" id="licence_state" name="licence_state">
-                                                <option class="" hidden>License State</option>
+                                                <option value="" hidden>License State</option>
                                                 <option value="California">California</option>
                                                 <option value="Texas">Texas</option>
                                                 <option value="Florida">Florida</option>

@@ -6,9 +6,15 @@ $(document).on('click', '.delete-datatable-record', function(e){
 
 $(document).ready(function() {
     console.log(site_url, '======site_url');
-    $('#formsTable').DataTable({
+    var table = $('#formsTable').DataTable({
         ...defaultDatatableSettings,
-        ajax: site_url + "/forms/",
+        ajax: {
+            url: site_url + "/forms/",
+            data: function (d) {
+                  d.status = $('#status').val(),
+                  d.search = $('input[type="search"]').val()
+              }
+        },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
             { data: 'full_name', name: 'full_name' },
@@ -17,7 +23,12 @@ $(document).ready(function() {
             { data: 'model', name: 'model' },
             { data: 'estimator_name', name: 'estimator_name' },
             { data: 'insurance_company', name: 'insurance_company' },
+            { data: 'status', name: 'status' },
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ]
+    });
+
+    $('#status').on("change", function(){
+        table.draw();
     });
 });
