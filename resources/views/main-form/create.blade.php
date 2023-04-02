@@ -41,8 +41,8 @@
                             <div>
                                     <div class="col-md-6 col-12">
                                             <div class="mb-1">
-                                                <label class="form-label" for="full_name">Ro <span class="text-danger asteric-sign">&#42;</span></label>
-                                                    <input id="full_name" type="text" class="form-control {{ $errors->has('ro') ? ' is-invalid' : '' }}" name="ro" value="{{ old('ro') }}" placeholder="Ro">
+                                                <label class="form-label" for="">Ro <span class="text-danger asteric-sign">&#42;</span></label>
+                                                    <input id="" type="text" class="form-control {{ $errors->has('ro') ? ' is-invalid' : '' }}" name="ro" value="{{ old('ro') }}" placeholder="Ro">
                                                     @if ($errors->has('ro'))
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('ro') }}</strong>
@@ -60,8 +60,8 @@
                                 </div> --}}
                                 <div class="col-md-6 col-12">
                                     <div class="mb-1">
-                                        <label class="form-label" for="full_name">Full Name <span class="text-danger asteric-sign">&#42;</span></label>
-                                            <input id="full_name" type="text" class="form-control {{ $errors->has('full_name') ? ' is-invalid' : '' }}" name="full_name" value="{{ old('full_name') }}" placeholder="Full Name">
+                                        <label class="form-label" for="full_name">First Name <span class="text-danger asteric-sign">&#42;</span></label>
+                                            <input id="full_name" type="text" class="form-control {{ $errors->has('full_name') ? ' is-invalid' : '' }}" name="full_name" value="{{ old('full_name') }}" placeholder="First Name">
                                             @if ($errors->has('full_name'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('full_name') }}</strong>
@@ -338,11 +338,11 @@
                                         <div class="col-md-3">
                                             <select class="form-control select" id="licence_state" name="licence_state">
                                                 <option value="" hidden>License State</option>
-                                                <option value="California">California</option>
-                                                <option value="Texas">Texas</option>
-                                                <option value="Florida">Florida</option>
-                                                <option value="Ohio">Ohio</option>
-                                                <option value="Alaska">Alaska</option>
+                                                <option value="California" @if(old('licence_state') == 'California') {{"selected"}} @endif>California</option>
+                                                <option value="Texas" @if(old('licence_state') == 'Texas') {{"selected"}} @endif>Texas</option>
+                                                <option value="Florida" @if(old('licence_state') == 'Florida') {{"selected"}} @endif>Florida</option>
+                                                <option value="Ohio" @if(old('licence_state') == 'Ohio') {{"selected"}} @endif>Ohio</option>
+                                                <option value="Alaska" @if(old('licence_state') == 'Alaska') {{"selected"}} @endif>Alaska</option>
                                             </select>
                                         </div>
                                        </div>

@@ -56,7 +56,7 @@
                                 <table id="w0" class="table table-striped table-bordered detail-view">
                                     <tbody>
                                     <tr>
-                                        <th>Full Name</th>
+                                        <th>First Name</th>
                                         <td colspan="1">{{ $customer['full_name'] }}</td>
                                         <th>Last Name</th>
                                         <td colspan="1">{{$customer['last_name']}}</td>

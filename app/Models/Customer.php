@@ -50,18 +50,18 @@ class Customer extends Model
         if(!empty($request)){
 
              //echo "<pre>"; print_r($request["search"]); die;
-            $search = @$request['search']["value"];
+            $search = @$request['search'];
             $status = @$request['status'];
 
             if(!empty($search)){
                 $query->where(function ($query) use($request,$search){
                     $query->orWhere( 'full_name', 'LIKE', '%'. $search .'%')
-                        ->orWhere( 'email', 'LIKE', '%'. $search .'%')
-                        ->orWhere('customers.created_at', 'LIKE', '%' . $search . '%')
-                        ->orWhere('estimators.name', 'LIKE', '%' . $search . '%')
-                        ->orWhere('insurance_company', 'LIKE', '%' . $search . '%')
-                        ->orWhere('year', 'LIKE', '%' . $search . '%')
-                        ->orWhere('make', 'LIKE', '%' . $search . '%');
+                        ->orWhere( 'last_name', 'LIKE', '%'. $search .'%');
+                        // ->orWhere('customers.created_at', 'LIKE', '%' . $search . '%')
+                        // ->orWhere('estimators.name', 'LIKE', '%' . $search . '%')
+                        // ->orWhere('insurance_company', 'LIKE', '%' . $search . '%')
+                        // ->orWhere('year', 'LIKE', '%' . $search . '%')
+                        // ->orWhere('make', 'LIKE', '%' . $search . '%');
                 });
 
                 if($status == 'open' || $status == 'closed'){

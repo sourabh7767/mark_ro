@@ -37,7 +37,7 @@ class MainFormController extends Controller
                 ->addIndexColumn()
 
                 ->addColumn('full_name', function ($customer) {
-                    return $customer->full_name;
+                    return $customer->full_name.' '.$customer->last_name;
                 })
 
                 ->addColumn('year', function ($customer) {
@@ -125,7 +125,9 @@ class MainFormController extends Controller
                 //'insurance_phone_number' => 'digits_between:7,12'
             );
 
-            $validator = Validator::make($request->all(), $rules);
+            $messages = array('full_name.required' => "The first name field is required.");
+
+            $validator = Validator::make($request->all(), $rules, $messages);
             if ($validator->fails()) {
                 return Redirect::back()->withInput()->withErrors($validator->errors());
             }
@@ -275,7 +277,9 @@ class MainFormController extends Controller
                 //'insurance_phone_number' => 'digits_between:7,12'
             );
 
-            $validator = Validator::make($request->all(), $rules);
+            $messages = array('full_name.required' => "The first name field is required.");
+
+            $validator = Validator::make($request->all(), $rules, $messages);
             if ($validator->fails()) {
                 return Redirect::back()->withInput()->withErrors($validator->errors());
             }
