@@ -1,0 +1,1 @@
+[03-Apr-2023 12:20:49 EST] PHP Fatal error:  Class App\Exports\MainFormExport contains 1 abstract method and must therefore be declared abstract or implement the remaining methods (Maatwebsite\Excel\Concerns\WithMapping::map) in /home/h761ay9aa4wf/public_html/mark_ro_project/ro/app/Exports/MainFormExport.php on line 11

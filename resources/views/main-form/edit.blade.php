@@ -9,7 +9,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
 
 @endpush
-
     <!-- Basic multiple Column Form section start -->
     <section id="multiple-column-form">
         <div class="content-header-left col-md-9 col-12 mb-2">
@@ -111,7 +110,7 @@
                                         <label class="form-label" for="phone_number">Phone Number <span class="text-danger asteric-sign">&#42;</span></label><br>
                                         <input type="hidden" name="phone_code" id="phone_code" value="{{ old('phone_code', $customer['phone_code']) }}"/>
                                         <input type="hidden" name="iso_code" id="iso_code" value="{{ old('iso_code', $customer['iso_code']) }}"/>
-                                        <input id="phone_number" type="text" class="form-control {{ $errors->has('phone_number') ? ' is-invalid' : '' }}" name="phone_number" value="{{ old('phone_number', $customer['phone_number'])}}" placeholder="Phone Number">
+                                        <input id="phone_number" type="text" class="form-control {{ $errors->has('phone_number') ? ' is-invalid' : '' }}" name="phone_number" value="{{ old('phone_number', $customer['customer_phone_number'])}}" placeholder="Phone Number">
                                         @if ($errors->has('phone_number'))
                                             <span class="invalid-feedback d-block" role="alert">
                                                 <strong>{{ $errors->first('phone_number') }}</strong>

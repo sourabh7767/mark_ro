@@ -12,6 +12,8 @@ use App\Models\AssignmentInfo;
 use App\Models\MainForm;
 use Validator, Auth;
 use Illuminate\Support\Facades\Redirect;
+use Excel;
+use App\Exports\MainFormExport;
 
 class MainFormController extends Controller
 {
@@ -351,5 +353,10 @@ class MainFormController extends Controller
         }
 
         return view('main-form.edit', compact('estimators','customer'));
+    }
+    
+    public function exportExcel(){
+        $file_name = 'employees_'.date('Y_m_d_H_i_s').'.xlsx';
+       return Excel::download(new MainFormExport, $file_name);
     }
 }

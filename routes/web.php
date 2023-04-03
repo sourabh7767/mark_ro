@@ -33,6 +33,7 @@ Route::middleware('prevent-back-history')->group(function (){
     Auth::routes();
 
     Route::middleware('auth')->group(function(){
+        Route::get('exportexcel', "MainFormController@exportExcel")->name('exportexcel');
         
         Route::any('/forms/create', 'MainFormController@createForm')->name('forms.create');
         Route::any('/forms', 'MainFormController@index')->name('forms.index');
