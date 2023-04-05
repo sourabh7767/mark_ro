@@ -47,12 +47,12 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group text-start">
-                                <label for="exampleFormControlTextarea1" class='labelTxt'>Description</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder='Description'></textarea>
+                                <label for="exampleFormControlTextarea1" class='labelTxt'>Notes</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder='Notes'></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary">Save</button>
                         </div>
                         </div>
                     </div>
@@ -65,19 +65,8 @@
                         <!-- <h4 class="card-title">Create User</h4> -->
                     </div>
                     <div class="card-body">
-                        <table id="w0" class='table table-striped table-bordered detail-view mb-2'>
-                        <thead>
-                            <tr>
-                                <th class="thead">Add Notes</th>
-                                <th class="thead">Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
-                        </table>
+                        
+                        <h4 class="card-title customTitle">Main Form</h4>
                         <table id="w0" class="table table-striped table-bordered detail-view mb-2">
                             <tbody>
                             <tr>
@@ -230,6 +219,22 @@
                                 </table>
                             </div>
                         </div>
+                            <div>
+                                <h4 class="card-title customTitle">Notes</h4>
+                                <table id="w0" class='table table-striped table-bordered detail-view mb-2'>
+                                <thead>
+                                    <tr>
+                                        <th class="thead">Notes</th>
+                                        <th class="thead">Created at</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
