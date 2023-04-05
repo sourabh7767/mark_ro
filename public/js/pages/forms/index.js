@@ -15,6 +15,17 @@ $(document).ready(function() {
                   d.search = $('input[type="search"]').val()
               }
         },
+        dom: 'Blfrtip',
+              buttons: [
+                   {
+                       extend: 'csv',
+                       text : 'Export to Csv'
+                   },
+                   {
+                       extend: 'excel',
+                       text : 'Export to Excel'
+                   }
+              ],
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
             { data: 'full_name', name: 'full_name' },
@@ -25,8 +36,9 @@ $(document).ready(function() {
             { data: 'insurance_company', name: 'insurance_company' },
             { data: 'status', name: 'status' },
             { data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
+        ],
+        "responsive": true
+    }).buttons().container().appendTo('.my_button_wrapper');
 
     $('#status').on("change", function(){
         table.draw();

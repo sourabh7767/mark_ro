@@ -37,7 +37,8 @@
                               <option value="closed">Closed</option>
                           </select>
                       </div>
-
+                      <div class="my_button_wrapper"></div>
+                      <!-- <a href="{{ route('exportexcel') }}" class="dt-button create-new btn btn-primary">&nbsp;&nbsp;Export</a> -->
                       <a href="{{ route('forms.create') }}" class="dt-button create-new btn btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New Form</a>
                   </div>
               <!-- /.card-header -->
