@@ -39,4 +39,29 @@
   font-size: 14px;
   display: inline-block;
 }
+.btnWarning {
+  display: inline-block;
+  padding: 12px;
+  font-size: 14px;
+  color: #212529;
+  background: #ffc107;
+  border: 1px solid #ffc107;
+  font-weight: 600;
+  border-radius: 5px;
+}
+.closeIcon {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: grey;
+}
+.labelTxt {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.thead
+{
+  font-size: 14px !important;
+}
 /* End Additional Css *

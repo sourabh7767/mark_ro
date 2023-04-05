@@ -30,28 +30,68 @@
         </div>
 
         <div class="row">
+            <div class="col-md-12 text-end mb-2">
+                <button class="btnWarning" data-bs-toggle="modal" data-bs-target="#addNotesModal">
+                    <i class="fas fa-edit"></i>
+                    Add to notes
+                </button>
+                <!-- Add NotesModal -->
+                <div class="modal fade" id="addNotesModal" tabindex="-1" aria-labelledby="addNotesModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Notes</h5>
+                            <button type="button" class="closeIcon" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group text-start">
+                                <label for="exampleFormControlTextarea1" class='labelTxt'>Description</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder='Description'></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                <!-- End NotesModal -->
+            </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <!-- <h4 class="card-title">Create User</h4> -->
                     </div>
                     <div class="card-body">
-                        <div class="card-body">
-                            <table id="w0" class="table table-striped table-bordered detail-view">
-                                <tbody>
-                                <tr>
-                                    <th>RO</th>
-                                    <td colspan="1">{{ !empty($customer['ro'])? $customer['ro'] : ""  }}</td>
-                                    <th>Status</th>
-                                    <td colspan="1">{{ !empty($customer['status'])? ucfirst($customer['status']) : ""  }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table id="w0" class='table table-striped table-bordered detail-view mb-2'>
+                        <thead>
+                            <tr>
+                                <th class="thead">Add Notes</th>
+                                <th class="thead">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                            </tr>
+                        </table>
+                        <table id="w0" class="table table-striped table-bordered detail-view mb-2">
+                            <tbody>
+                            <tr>
+                                <th>RO</th>
+                                <td colspan="1">{{ !empty($customer['ro'])? $customer['ro'] : ""  }}</td>
+                                <th>Status</th>
+                                <td colspan="1">{{ !empty($customer['status'])? ucfirst($customer['status']) : ""  }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
                         <!-- Start Customer Name -->
                         <div class="row">
-                            <h4 class="card-title customTitle mb-1">Customer Info</h4>
+                            <h4 class="card-title customTitle">Customer Info</h4>
                             <div class="card-body">
                                 <table id="w0" class="table table-striped table-bordered detail-view">
                                     <tbody>
