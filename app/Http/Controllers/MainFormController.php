@@ -10,6 +10,7 @@ use App\Models\Vehicle;
 use App\Models\Insurance;
 use App\Models\AssignmentInfo;
 use App\Models\MainForm;
+use App\Models\Notes;
 use Validator, Auth;
 use Illuminate\Support\Facades\Redirect;
 use Excel;
@@ -211,17 +212,20 @@ class MainFormController extends Controller
 
     public function view($customer_id){
 
-        $customer = Customer::select("customers.*","vehicles.*", "estimators.name as estimator_name", "insurances.*", "insurances.phone_number as insurance_phone_number", "main_forms.*", "assignment_infos.*")
+        $customer = Customer::select("customers.*","vehicles.*", "estimators.name as estimator_name", "insurances.*", "insurances.phone_number as insurance_phone_number", "main_forms.*","main_forms.id as main_form_id", "assignment_infos.*")
         ->leftJoin('vehicles', 'customers.id', '=', 'vehicles.customer_id')
         ->leftJoin('main_forms', 'customers.id', '=', 'main_forms.customer_id')
         ->leftJoin('estimators', 'estimators.id', '=', 'main_forms.estimator_id')
         ->leftJoin('insurances', 'insurances.customer_id', '=', 'customers.id')
         ->leftJoin('assignment_infos', 'assignment_infos.customer_id', '=', 'customers.id')
+        ->leftJoin('main_form_notes', 'main_forms.id', '=', 'main_form_notes.main_form_id')
         ->where("customers.id", $customer_id)
         ->first();
-        // echo "<pre>"; print_r($customer->toArray()); die;
+        //echo "<pre>"; print_r($customer->main_form_id); die;
+        $notes = Notes::where("main_form_id",$customer->main_form_id)->get();
+         
 
-        return view('main-form.view', compact('customer'));
+        return view('main-form.view', compact('customer','notes'));
     }
 
     public function edit(Request $request, $customer_id){
@@ -355,8 +359,31 @@ class MainFormController extends Controller
         return view('main-form.edit', compact('estimators','customer'));
     }
     
-    public function exportExcel(){
-        $file_name = 'employees_'.date('Y_m_d_H_i_s').'.xlsx';
-       return Excel::download(new MainFormExport, $file_name);
+    public function exportExcel(request $request){
+        $search = $status = "";
+        if($request->has("status") && !empty($request->status)){
+            $status = $request->status;
+        }else{
+            $status = "All";
+        }
+        if($request->has("search") && !empty($request->search)){
+            $search = $request->search;
+        }
+        $file_name = 'list'.date('Y_m_d_H_i_s').'.xlsx';
+        $data = ["status" => $status,"search" => $search];
+        return Excel::download(new MainFormExport($data), $file_name);
+    }
+
+    public function addNotes(request $request){
+        $obj = New Notes();
+        $obj->main_form_id = $request->main_form_id;
+        $obj->notes = $request->notes;
+        if($obj->save()){
+            $returnArr = ["status" => 1];
+            return json_encode($returnArr);
+        }else{
+            $returnArr = ["status" => 0];
+            return json_encode($returnArr);
+        }
     }
 }

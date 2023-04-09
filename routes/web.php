@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('exportexcel', "MainFormController@exportExcel")->name('exportexcel');
 Route::middleware('prevent-back-history')->group(function (){
 
     Route::get('/clear-cache', function () {
@@ -33,8 +33,9 @@ Route::middleware('prevent-back-history')->group(function (){
     Auth::routes();
 
     Route::middleware('auth')->group(function(){
-        Route::get('exportexcel', "MainFormController@exportExcel")->name('exportexcel');
         
+        
+        Route::any('/forms/add/notes', 'MainFormController@addNotes')->name('forms.add,notes');
         Route::any('/forms/create', 'MainFormController@createForm')->name('forms.create');
         Route::any('/forms', 'MainFormController@index')->name('forms.index');
         Route::any('/form/view/{customer_id}', 'MainFormController@view')->name('form.view');

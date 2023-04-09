@@ -48,11 +48,11 @@
                         <div class="modal-body">
                             <div class="form-group text-start">
                                 <label for="exampleFormControlTextarea1" class='labelTxt'>Notes</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder='Notes'></textarea>
+                                <textarea class="form-control notes" id="exampleFormControlTextarea1" rows="5" placeholder='Notes'></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save</button>
+                            <button type="button"  class="btn btn-primary submit-notes">Save</button>
                         </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                             </tr>
                             </tbody>
                         </table>
-
+                        <input type="hidden" class="main_form_id" value="{{@$customer['main_form_id']}}" />
                         <!-- Start Customer Name -->
                         <div class="row">
                             <h4 class="card-title customTitle">Customer Info</h4>
@@ -229,10 +229,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($notes as $noteKey => $noteValue)
                                     <tr>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
+                                        <td>{{$noteValue->notes}}</td>
+                                        <td>{{$noteValue->created_at}}</td>
                                     </tr>
+                                    @empty
+                                        No data found
+                                    @endforelse
                                 </table>
                             </div>
                         </div>
@@ -242,5 +246,42 @@
         </div>
     </section>
     <!-- Basic Floating Label Form section end -->
+    @push('page_script')
+        <script>
+                $(document).ready(function() {
+                    $('.submit-notes').click(function() {
+                        var notes = $(".notes").val();
+                        var main_form_id = $(".main_form_id").val();
+                        if(main_form_id == ""){
+                            alert("Please add notes");
+                            return false;
+                        }
+                        $.ajax({
+                        url: "{{route('forms.add,notes')}}",
+                        type: 'POST',
+                        data: {
+                            main_form_id: main_form_id,
+                            notes: notes
+                        },
+                        success: function(response) {
+                            var data = $.parseJSON(response);
+                            if(data.status == 1){
+                                swal("Good job!", "Notes Added!", "success")
+                                $('#addNotesModal').modal('hide');
+                                location.reload();
+                            }else{
+                                swal("Oops!", "Something went wrong!", "error");
+                                //alert("Some error,Please try again");
+                            }
 
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error(textStatus, errorThrown);
+                            swal("Oops!", "Something went wrong!", "error");
+                        }
+                        });
+                    });
+                });
+        </script>
+    @endpush
 @endsection
