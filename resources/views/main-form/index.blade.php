@@ -3,7 +3,12 @@
 @section('title')Forms @endsection
 
 @section('content')
-
+<style>
+  div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+</style>
     <!-- Main content -->
     <section>
       <div class="content-header-left col-md-9 col-12 mb-2">
@@ -43,7 +48,7 @@
                   </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="formsTable" class="table table-bordered table-hover">
+                <table id="formsTable" style="width:100%" class="table table-bordered table-hover">
                   <thead>
                   <tr>
                     <th>Ro</th>

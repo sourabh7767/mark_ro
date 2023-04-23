@@ -51,8 +51,11 @@ $(document).ready(function() {
             // { data: 'status', name: 'status' },
             { data: 'action', name: 'action', orderable: false, searchable: false},
         ],
-        "responsive": true
-    }).buttons().container().appendTo('.my_button_wrapper');
+        //"responsive": true,
+        scrollX: true,
+    });
+    var dataTableVariable = table.buttons().container().appendTo('.my_button_wrapper');
+    //.buttons().container().appendTo('.my_button_wrapper');
 
     $('#status').on("change", function(){
         table.draw();
