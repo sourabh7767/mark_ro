@@ -46,14 +46,26 @@
                 <table id="formsTable" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>S.No</th>
+                    <th>Ro</th>
                     <th>Full Name</th>
                     <th>Year</th>
                     <th>Make</th>
                     <th>Model</th>
+                    <th>Color</th>
                     <th>Estimator</th>
                     <th>Insurance Company</th>
-                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Target Date</th>
+                    <th>Wheel</th>
+                    <th>Wheel Date</th>
+                    <th>Alignment</th>
+                    <th>Alignment Date</th>
+                    <th>Decals</th>
+                    <th>Decals Date</th>
+                    <th>Glass</th>
+                    <th>Glass Date</th>
+                    <th>Adas</th>
+                    <th>Adas Date</th>
                     <th data-orderable="false">Action</th>
                   </tr>
                   </thead>

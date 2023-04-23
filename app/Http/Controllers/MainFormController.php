@@ -15,6 +15,7 @@ use Validator, Auth;
 use Illuminate\Support\Facades\Redirect;
 use Excel;
 use App\Exports\MainFormExport;
+use Carbon\Carbon;
 
 class MainFormController extends Controller
 {
@@ -34,7 +35,7 @@ class MainFormController extends Controller
 
                 $setFilteredRecords = $customer->getAllCustomers($request,true);
 
-            }
+            } 
 
             return datatables()->of($customers)
                 ->addIndexColumn()
@@ -67,6 +68,26 @@ class MainFormController extends Controller
                     return ucfirst($customer->status);
                 })
 
+                ->addColumn('is_wheel', function ($customer) {
+                    return "&#x2713;";
+                })
+
+                ->addColumn('is_alignment', function ($customer) {
+                    return "&#x2713;";
+                })
+
+                ->addColumn('is_decals', function ($customer) {
+                    return "&#x2713;";
+                })
+
+                ->addColumn('is_glass', function ($customer) {
+                    return "&#x2713;";
+                })
+
+                ->addColumn('is_adas', function ($customer) {
+                    return "&#x2713;";
+                })
+
                 ->addColumn('action', function ($customer) {
                 $btn = '<a href="'.route("form.view", $customer->id).'"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="'.route("form.edit", $customer->id).'"><i class="fa fa-edit" aria-hidden="true"></i></a>';
 
@@ -74,7 +95,12 @@ class MainFormController extends Controller
             })
                 ->rawColumns([
                 'action',
-                'status'
+                'status',
+                'is_wheel',
+                'is_alignment',
+                'is_decals',
+                'is_glass',
+                'is_adas'
             ])->setTotalRecords($totalCustomers)->setFilteredRecords($setFilteredRecords)->skipPaging()
                 ->make(true);
         }
@@ -193,6 +219,22 @@ class MainFormController extends Controller
                             $mainForm->priority = @$data['priority'];
                             $mainForm->estimator_id = @$data['estimator_name'];
                             $mainForm->ro = @$data['ro'];
+
+                            $mainForm->date_in = @$data['date_in'];
+                            $mainForm->date_out = @$data['date_out'];
+                            $mainForm->target_date = @$data['target_date'];
+                            $mainForm->labour_hours = @$data['labour_hours'];
+                            $mainForm->sales_amount = @$data['sales_amount'];
+
+                            if($request->has("labour_hours") && !empty($request->labour_hours)){
+                                $days = ($request->labour_hours/4)+1;
+                                $days = $this->roundToNearestInteger($days);
+
+                                $date = Carbon::parse($mainForm->date_in);
+                                $newDate = $date->addDays($days);
+                                $mainForm->due_date = $newDate;
+                            }
+
                             $mainForm->user_id = Auth::user()->id;
                             $mainForm->status = 'open';
                             
@@ -208,6 +250,10 @@ class MainFormController extends Controller
         }
 
         return view('main-form.create', compact('estimators'));
+    }
+
+    function roundToNearestInteger($number) {
+        return ($number >= 0) ? ceil($number) : floor($number);
     }
 
     public function view($customer_id){
@@ -343,6 +389,22 @@ class MainFormController extends Controller
                             $mainForm->estimator_id = @$data['estimator_name'];
                             $mainForm->ro = @$data['ro'];
                             $mainForm->status = @$data['status'];
+
+                            $mainForm->date_in = @$data['date_in'];
+                            $mainForm->date_out = @$data['date_out'];
+                            $mainForm->target_date = @$data['target_date'];
+                            $mainForm->labour_hours = @$data['labour_hours'];
+                            $mainForm->sales_amount = @$data['sales_amount'];
+
+                            if($request->has("labour_hours") && !empty($request->labour_hours)){
+                                $days = ($request->labour_hours/4)+1;
+                                $days = $this->roundToNearestInteger($days);
+
+                                $date = Carbon::parse($mainForm->date_in);
+                                $newDate = $date->addDays($days);
+                                $mainForm->due_date = $newDate;
+                            }
+
                             $mainForm->user_id = Auth::user()->id;
                             
                             if($mainForm->save()){

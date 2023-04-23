@@ -40,7 +40,7 @@ class Customer extends Model
             $column = 'id';
         }
         
-        $query = self::select("customers.*","vehicles.year", "vehicles.make","vehicles.model", "estimators.name as estimator_name", "insurances.insurance_company", "main_forms.status")
+        $query = self::select("customers.*","vehicles.year", "vehicles.make","vehicles.model","vehicles.exterior_color", "estimators.name as estimator_name", "insurances.insurance_company", "main_forms.status","main_forms.ro as ro","main_forms.date_in as date_in","main_forms.date_out as date_out","main_forms.target_date as target_date","main_forms.due_date as due_date","main_forms.wheel as wheel","main_forms.wheel_date as wheel_date","main_forms.alignment as alignment","main_forms.decals as decals","main_forms.glass as glass","main_forms.glass_date as glass_date","main_forms.adas as adas","main_forms.adas_date as adas_date","main_forms.decals_date as decals_date","main_forms.alignment_date as alignment_date")
         ->leftJoin('vehicles', 'customers.id', '=', 'vehicles.customer_id')
         ->leftJoin('main_forms', 'customers.id', '=', 'main_forms.customer_id')
         ->leftJoin('estimators', 'estimators.id', '=', 'main_forms.estimator_id')

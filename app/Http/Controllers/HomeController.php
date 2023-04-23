@@ -12,6 +12,7 @@ use App\Models\AssignmentInfo;
 use App\Models\MainForm;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -35,6 +36,26 @@ class HomeController extends Controller
         $users = User::where('created_by','!=', 0)->count();
         $data = User::getActiveInactiveCount();
         $monthlys = User::monthly();
-        return view('home',compact("users","data","monthlys"));
+        
+
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+
+        $currentMonthSale = MainForm::whereMonth('date_out', '=', $currentMonth)
+                                    ->whereYear('date_out', '=', $currentYear)
+                                    ->sum('sales_amount');
+        
+        $lastMonth = Carbon::now()->subMonth()->month;
+        $currentYear = Carbon::now()->year;
+        
+        $lastMonthSale = MainForm::whereMonth('date_out', '=', $lastMonth)
+                                    ->whereYear('date_out', '=', $currentYear)
+                                    ->sum('sales_amount');
+
+        $inProcessAmount = MainForm::whereNotNull('date_in')
+                                        ->whereNull('date_out')
+                                        ->sum('sales_amount');
+
+        return view('home',compact("users","data","monthlys",'inProcessAmount','lastMonthSale','currentMonthSale'));
     }
 }

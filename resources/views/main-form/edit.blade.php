@@ -65,6 +65,72 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                    <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="">Date In <span class="text-danger asteric-sign"></span></label>
+                                                <input id="date_in" type="date"  class="form-control {{ $errors->has('date_in') ? ' is-invalid' : '' }}" name="date_in" value="@if(!empty(old('date_in')) || !empty($customer['date_in'])){{ date("Y-m-d", strtotime(old('date_in', $customer['date_in']))) }}@endif" placeholder="Date In">
+                                                    @if ($errors->has('date_in'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $errors->first('date_in') }}</strong>
+                                                        </span>
+                                                    @endif
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="">Date out <span class="text-danger asteric-sign"></span></label>
+                                                <input id="date_out" type="date"  class="form-control {{ $errors->has('date_out') ? ' is-invalid' : '' }}" name="date_out" value="@if(!empty(old('date_out')) || !empty($customer['date_out'])){{ date("Y-m-d", strtotime(old('date_out', $customer['date_out']))) }}@endif" placeholder="Date Out">
+                                                    @if ($errors->has('date_out'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $errors->first('date_out') }}</strong>
+                                                        </span>
+                                                    @endif
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-12">   
+                                        <div class="mb-1">
+                                            <label class="form-label" for="target_date">Target Date:<span class="text-danger asteric-sign"></span></label>
+                                            <input id="target_date" type="date"  class="form-control {{ $errors->has('target_date') ? ' is-invalid' : '' }}" name="target_date" value="@if(!empty(old('target_date')) || !empty($customer['target_date'])){{ date("Y-m-d", strtotime(old('target_date', $customer['target_date']))) }}@endif" placeholder="Target Date">
+                                            @if ($errors->has('target_date'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('target_date') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label" for="labour_hours">Labour Hour <span class="text-danger asteric-sign">&#42;</span></label>
+                                            <input id="labour_hours" type="text" class="form-control {{ $errors->has('labour_hours') ? ' is-invalid' : '' }}" name="labour_hours" value="{{ old('labour_hours',$customer['labour_hours']) }}" placeholder="Labour Hour">
+                                            @if ($errors->has('labour_hours'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('labour_hours') }}</strong>
+                                                </span>
+                                            @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="mb-1">
+                                        <label class="form-label" for="sales_amount">Sales Amount <span class="text-danger asteric-sign">&#42;</span></label>
+                                            <input id="sales_amount" type="text" class="form-control {{ $errors->has('sales_amount') ? ' is-invalid' : '' }}" name="sales_amount" value="{{ old('sales_amount',$customer['sales_amount']) }}" placeholder="Sales Amount">
+                                            @if ($errors->has('sales_amount'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('sales_amount') }}</strong>
+                                                </span>
+                                            @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
                             <!-- Start Customer Name -->
                             <div class="row">
                                 <h4 class="card-title customTitle mb-1">Customer Info</h4>
