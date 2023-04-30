@@ -94,9 +94,9 @@ class MainFormController extends Controller
 
                 ->addColumn('action', function ($customer) {
                 $btn = '<a href="'.route("form.view", $customer->id).'"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="'.route("form.edit", $customer->id).'"><i class="fa fa-edit" aria-hidden="true"></i></a>';
-                $btn .= "<a href='#' class='add-data'  data-id=".$customer->id." >Add data</a>";
-                $btn .= "<a href='#' class='add-notes'  data-id=".$customer->id." >Add Notes</a>";
-                $btn .= "<a href='#' class='view-notes'  data-id=".$customer->id." >View Notes</a>";
+                $btn .= "<a href='#' class='add-data me-1'  data-id=".$customer->id." ><u>Add data</u></a>";
+                $btn .= "<a href='#' class='add-notes me-1'  data-id=".$customer->id." ><u>Add Notes</u></a>";
+                $btn .= "<a href='#' class='view-notes me-1'  data-id=".$customer->id." ><u>View Notes</u></a>";
 
                 return $btn;
             })
