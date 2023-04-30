@@ -174,7 +174,7 @@
                                         success: function(response) {
                                           if (response.success) {
                                               table.draw();           
-                                              swal("Good job!", "Notes Added!", "success")
+                                              swal("Good job!", "Data Added!", "success")
                                               $('#addDataModal').modal('hide');        
                                           }else{
                                             var errors = response.errors;

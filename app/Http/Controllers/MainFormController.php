@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\Estimator;
@@ -465,15 +466,15 @@ class MainFormController extends Controller
         //echo "<pre>";print_r($request->all());die;
         $rules = array(
             'wheel' => 'sometimes',
-            'wheel_date' => 'required_if:wheel,1|date',
+            'wheel_date' => Rule::requiredIf($request->has('wheel')),
             'alignment' => 'sometimes',
-            'alignment_date' => 'required_if:alignment,1|date',
+            'alignment_date' => Rule::requiredIf($request->has('alignment')),
             'decals' => 'sometimes',
-            'decals_date' => 'required_if:decals,1|date',
+            'decals_date' => Rule::requiredIf($request->has('decals')),
             'glass' => 'sometimes',
-            'glass_date' => 'required_if:glass,1|date',
+            'glass_date' => Rule::requiredIf($request->has('glass')),
             'adas' => 'sometimes',
-            'adas_date' => 'required_if:adas,1|date',
+            'adas_date' => Rule::requiredIf($request->has('adas')),
         );
 
         $validator = Validator::make($request->all(), $rules);
