@@ -3,10 +3,10 @@ $(document).on('click', '.delete-datatable-record', function(e){
     let tableId = 'formsTable';
     deleteDataTableRecord(url, tableId);
 });
-
+var table;
 $(document).ready(function() {
     console.log(site_url, '======site_url');
-    var table = $('#formsTable').DataTable({
+    table = $('#formsTable').DataTable({
         ...defaultDatatableSettings,
         ajax: {
             url: site_url + "/forms/",

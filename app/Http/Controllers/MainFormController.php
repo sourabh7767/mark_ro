@@ -10,6 +10,7 @@ use App\Models\Vehicle;
 use App\Models\Insurance;
 use App\Models\AssignmentInfo;
 use App\Models\MainForm;
+use App\Models\MainFormNote;
 use App\Models\Notes;
 use Validator, Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -69,27 +70,32 @@ class MainFormController extends Controller
                 })
 
                 ->addColumn('is_wheel', function ($customer) {
-                    return "&#x2713;";
+                    if($customer->wheel) {
+                        return "&#x2713;";
+                    };
                 })
 
                 ->addColumn('is_alignment', function ($customer) {
-                    return "&#x2713;";
+                    if($customer->alignment) {return "&#x2713;";};
                 })
 
                 ->addColumn('is_decals', function ($customer) {
-                    return "&#x2713;";
+                    if($customer->decals) {return "&#x2713;";};
                 })
 
                 ->addColumn('is_glass', function ($customer) {
-                    return "&#x2713;";
+                    if($customer->glass) {return "&#x2713;";};
                 })
 
                 ->addColumn('is_adas', function ($customer) {
-                    return "&#x2713;";
+                    if($customer->adas) {return "&#x2713;";};
                 })
 
                 ->addColumn('action', function ($customer) {
                 $btn = '<a href="'.route("form.view", $customer->id).'"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="'.route("form.edit", $customer->id).'"><i class="fa fa-edit" aria-hidden="true"></i></a>';
+                $btn .= "<a href='#' class='add-data'  data-id=".$customer->id." >Add data</a>";
+                $btn .= "<a href='#' class='add-notes'  data-id=".$customer->id." >Add Notes</a>";
+                $btn .= "<a href='#' class='view-notes'  data-id=".$customer->id." >View Notes</a>";
 
                 return $btn;
             })
@@ -447,5 +453,79 @@ class MainFormController extends Controller
             $returnArr = ["status" => 0];
             return json_encode($returnArr);
         }
+    }
+
+    public function getAddDataForm(request $request){
+        $mainFormId = $request->main_form_id;
+        $data = MainForm::where("id",$mainFormId)->first();
+        return response()->view('main-form.add-data-form',compact('mainFormId','data'));
+    }
+
+    public function saveExtraData(request $request){
+        //echo "<pre>";print_r($request->all());die;
+        $rules = array(
+            'wheel' => 'sometimes',
+            'wheel_date' => 'required_if:wheel,1|date',
+            'alignment' => 'sometimes',
+            'alignment_date' => 'required_if:alignment,1|date',
+            'decals' => 'sometimes',
+            'decals_date' => 'required_if:decals,1|date',
+            'glass' => 'sometimes',
+            'glass_date' => 'required_if:glass,1|date',
+            'adas' => 'sometimes',
+            'adas_date' => 'required_if:adas,1|date',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+            ]);
+        }
+        $obj = MainForm::where("id",$request->main_form_id)->first();
+        if($obj){
+            if($request->wheel){
+                $obj->wheel = 1;
+                $obj->wheel_date = $request->wheel_date;
+            }else{
+                $obj->wheel = 0;
+            }
+            if($request->alignment){
+                $obj->alignment = 1;
+                $obj->alignment_date = $request->alignment_date;
+            }else{
+                $obj->alignment = 0;
+            }
+            if($request->decals){
+                $obj->decals = 1;
+                $obj->decals_date = $request->decals_date;
+            }else{
+                $obj->decals = 0;
+            }
+            if($request->glass){
+                $obj->glass_date = $request->glass_date;
+                $obj->glass = 1;
+            }else{
+                $obj->glass = 0;
+            }
+            if($request->adas){
+                $obj->adas_date = $request->adas_date;
+                $obj->adas = 1;
+            }else{
+                $obj->adas = 0;
+            }
+            $obj->save();
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Data saved successfully',
+        ]);
+    }
+
+    public function viewNotes(request $request){
+        $mainFormId = $request->main_form_id;
+        $notes = MainFormNote::where("main_form_id",$mainFormId)->get();
+        return response()->view('main-form.view-notes',compact('notes'));        
     }
 }

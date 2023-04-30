@@ -257,7 +257,7 @@
                             return false;
                         }
                         $.ajax({
-                        url: "{{route('forms.add,notes')}}",
+                        url: "{{route('forms.add.notes')}}",
                         type: 'POST',
                         data: {
                             main_form_id: main_form_id,

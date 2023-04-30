@@ -35,7 +35,7 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::middleware('auth')->group(function(){
         
         
-        Route::any('/forms/add/notes', 'MainFormController@addNotes')->name('forms.add,notes');
+        Route::any('/forms/add/notes', 'MainFormController@addNotes')->name('forms.add.notes');
         Route::any('/forms/create', 'MainFormController@createForm')->name('forms.create');
         Route::any('/forms', 'MainFormController@index')->name('forms.index');
         Route::any('/form/view/{customer_id}', 'MainFormController@view')->name('form.view');
@@ -52,7 +52,9 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('user/change-password','UserController@changePassword')->name('user.changePassword.submit');
         
         Route::resource('email-queue', 'EmailQueueController');
-
+        Route::get('get-main-data-view','MainFormController@getAddDataForm')->name('add.form.data');
+        Route::post('save-extra-data','MainFormController@saveExtraData')->name('save.form.data.extra');
+        Route::get('view-notes','MainFormController@viewNotes')->name('view.notes');
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function(){
